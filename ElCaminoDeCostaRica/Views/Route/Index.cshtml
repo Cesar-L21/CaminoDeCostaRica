@@ -1,0 +1,537 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Index";
+}
+
+<style>
+    #map {
+        height: 500px;
+        width: 100%;
+    }
+</style>
+
+<div class="formTitleCenter" style="color: #184D47">
+    <h2>Rutas Del Camino De Costa Rica</h2>
+    <h3>Ruta @ViewBag.RouteInfo[0].id</h3>
+    <h3>Inicio: @ViewBag.RouteInfo[0].start</h3>
+    <h3>Fin: @ViewBag.RouteInfo[0].finish</h3>
+    <h3>Distancia: @ViewBag.RouteInfo[0].distance km</h3>
+    <h3></h3>
+</div>
+
+<div class="row w-100 mb-3" style="margin-left:10px ; margin-right:0px;  border-radius: 2rem; border-style: solid; border-color: #FAD586;">
+    <div class="col-lg-6 mb-5 mt-2 ">
+        <div id="map" class="container-fluid " style=" border-radius:2rem;"></div>
+        <div id="elevation_chart" class="container-fluid " style=" border-radius:2rem;"></div>
+    </div>
+    <div class="col-lg-6   align-items-center mt-2  ">
+        <!--Lista de etapas-->
+
+        <div class="w-25 h-25">
+
+            <div for="stageSelector">
+                <h2 style="color: #184D47">Información de  Etapas </h2>
+            </div>
+            <div>
+                <select class="form-select form-select-lg mb-3 " style="color: #184D47"
+                        name="stageSelector" id="stageSelector">
+                    <option value="" selected disabled hidden> Etapas</option>
+                    @foreach (var stage in ViewBag.stageInfo)
+                    {
+                        <option value=@stage.id>@stage.id</option>
+                    }
+                </select>
+            </div>
+
+            <div style="width:max-content; font-size:x-large">
+                <ul class="list-group" style="color:#FAD586">
+                    <li class="list-group-item" id="name">Nombre</li>
+                    <li class="list-group-item" id="start">Inicio: </li>
+                    <li class="list-group-item" id="finish">Fin: </li>
+                    <li class="list-group-item" id="distance">Distancia: </li>
+                    <li class="list-group-item" id="minHeight">Altura mínima: </li>
+                    <li class="list-group-item" id="maxHeight">Altura máxima: </li>
+                    <li><br /></li>
+                    <li class="list-group-item"> Fechas disponibles</li>
+                    <li>
+                        <select class="form-select form-select-lg mb-3 " style="color: #184D47"
+                                name="datesSelector" id="datesSelector">
+                            <option value="" selected disabled hidden> Fechas</option>
+                        </select>
+
+                    </li>
+                    @{
+                        if (TempData.Peek("Menu") == "user")
+                        {
+                            <li>
+                                @Html.ActionLink("Inscribirse", "Inscription", null, new
+                                {
+                                    @class = "btn btn alert-info",
+                                 @onclick = "this.href += '?identificador=' + getStage() + '&dates=' + getDate();"
+                                })
+                            </li>
+                            <br />
+                            if (ViewBag.Message != null)
+                            {
+                            if (ViewBag.Success)
+                             {
+                                <div class="alert-success">
+                                    <h3> @ViewBag.Message </h3>
+                                 </div>
+                             }
+                            else
+                            {
+                                <div class="alert-danger">
+                                    <h3> @ViewBag.Message </h3>
+                                 </div>
+                            }
+                                    
+                            }
+                        }
+
+                    }
+
+                    }
+                    <li class="list-group-item"><a class="btn btn-default" id="siteToggle">Ver sólo mis sitios</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <script src="https://www.google.com/jsapi"></script>
+    </div>
+    <div class="modal fade" id="modalcontainer" tabindex="-1" aria-labelledby="modalcontainer" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title"></h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" id="modalBody">
+                    <p hidden id="modalSiteID"></p>
+                    <p id="modalSiteName"></p>
+                    <p id="modalSiteDesc"></p>
+                    <p id="modalSiteStage"></p>
+                    @if (TempData["var"] != null)
+                    {
+                        <div class="success-message">
+                            @Html.Raw(@TempData["var"].ToString())
+                        </div>
+                    }
+                </div>
+                <div class="modal-footer">
+                    <button type="button" id="shareBtn" class="btn btn-primary" data-bs-dismiss="modal">Compartir</button>
+                    <button type="button" id="faveBtn" class="btn btn-primary">Añadir a mis sitios</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div>
+        @{ if (ViewBag.Message1 != null)
+            {
+                if (ViewBag.Success)
+                {
+        <div class="alert-success">
+            <h3> @ViewBag.Message1 </h3>
+        </div>
+        }
+        else
+        {
+        <div class="alert-danger">
+            <h3> @ViewBag.Message1 </h3>
+        </div>
+        }
+                }
+            }
+        @Html.ActionLink("Ver servicios", "showServices", null, new
+        {
+            @class = "btn btn alert-info",
+        @onclick = "this.href +='?identificador=' + getStage();"
+        })
+
+        <br />
+        @Html.ActionLink("Ver sitios", "", null, new
+        {
+            @class = "btn btn alert-info",
+        @onclick = "this.href += '?identificador=' + getStage() "
+        })
+    </div>
+
+@section scripts {
+    <script type="text/javascript">
+        var map;
+        var elevator;
+        var places;
+        var sites;
+        var markerArray = [];
+        var currentStageLine;
+        google.load("visualization", "1", { packages: ["columnchart"] });
+        let pathInfo = @Html.Raw(Json.Encode(@ViewBag.pathInfo));
+        let placeInfo = @Html.Raw(Json.Encode(@ViewBag.placeInfo));
+        let stageInfo = @Html.Raw(Json.Encode(@ViewBag.stageInfo));
+        let datesInfo = @Html.Raw(Json.Encode(@ViewBag.dates));
+        let inscriptionInfo = @Html.Raw(Json.Encode(ViewBag.inscriptions));
+
+        console.log(placeInfo);
+        console.log(stageInfo);
+        console.log(pathInfo);
+        let siteInfo = @Html.Raw(Json.Encode(@ViewBag.siteInfo));
+        let cookie = @Html.Raw(Json.Encode(@ViewBag.cookie));
+
+        function getStage()
+        {
+            var id = document.getElementById("stageSelector").value;
+            return parseInt(id);
+        }
+        function getDate() {
+            var date = document.getElementById("datesSelector").value;
+            return parseInt(date);
+        }
+
+        document.getElementById("stageSelector").onchange = stageSelected;
+        modalBody = document.getElementById("modalBody");
+        faveBtn = document.getElementById("faveBtn");
+        faveBtn.addEventListener("click", function () { faveBtnClicked() }, false);
+        siteToggle = document.getElementById("siteToggle");
+        siteToggle.addEventListener("click", function () { siteToggleClicked() }, false);
+
+        let splitter = 'id=';
+        let indexOf = cookie.Value.indexOf('id=');
+        var userID = cookie.Value.slice(indexOf + splitter.length);
+
+        function initMap()
+        {
+            let options = {
+                zoom: 8,
+                center: { lat: 9.854328, lng: -83.610901 },
+                mapTypeId: 'satellite'
+            }
+            map = new google.maps.Map(document.getElementById('map'), options);
+            currentStageLine = new google.maps.Polyline();
+            elevator = new google.maps.ElevationService();
+            const infowindow = new google.maps.InfoWindow({});
+
+            infowindow.open(map);
+            //Display the elevation for the LatLng of the click inside the infowindow.
+            map.addListener("click", (event) => {
+                displayLocationElevation(event.latLng, elevator, infowindow);
+            });
+
+            let path = createPathArray(pathInfo, 0);
+            displayPathElevation(path, elevator, map, 0);
+
+            places = createMarkerArray(placeInfo, 0);
+            for (let i = 0; i < places.length; i++)
+            {
+                addMarker(places[i]);
+            }
+
+            sites = createSiteArray(siteInfo, 0);
+            for (let i = 0; i < sites.length; i++) {
+                addMarker(sites[i]);
+            }
+        }
+
+        function displayLocationElevation(location, elevator, infowindow)
+        {
+            // Initiate the location request
+            elevator
+                .getElevationForLocations({
+                    locations: [location],
+                })
+                .then(({ results }) => {
+                    infowindow.setPosition(location);
+                    // Retrieve the first result
+                    if (results[0]) {
+                        // Open the infowindow indicating the elevation at the clicked position.
+                        infowindow.setContent(
+                            "Elevación:<br> " +
+                            results[0].elevation +
+                            " metros."
+                        );
+                    } else {
+                        infowindow.setContent("Sin resultados");
+                    }
+                })
+                .catch((e) =>
+                    infowindow.setContent("Servicio de elevación falló: " + e)
+                );
+        }
+
+        function displayPathElevation(path, elevator, map, stage)
+        {
+            if (stage == 0) {
+                new google.maps.Polyline({
+                    path: path,
+                    strokeColor: "#ffb703",
+                    strokeOpacity: 0.9,
+                    map: map,
+                });
+            } else {
+                currentStageLine.setMap(null);
+                currentStageLine = new google.maps.Polyline({
+                    path: path,
+                    strokeColor: "#28FF28",
+                    strokeOpacity: 0.9,
+                    map: map,
+                });
+
+            }
+
+            if (stage == 0) {
+                new google.maps.Polyline({
+                    path: path,
+                    strokeColor: "#ffb703",
+                    strokeOpacity: 0.9,
+                    map: map,
+                });
+            } else {
+                currentStageLine.setMap(null);
+                currentStageLine = new google.maps.Polyline({
+                    path: path,
+                    strokeColor: "#28FF28",
+                    strokeOpacity: 0.9,
+                    map: map,
+                });
+
+            }
+
+            // Create a PathElevationRequest object using this array.
+            // Ask for 256 samples along that path.
+            // Initiate the path request.
+            elevator
+                .getElevationAlongPath({
+                    path: path,
+                    samples: 256,
+                })
+                .then(plotElevation)
+                .catch((e) => {
+                    const chartDiv = document.getElementById("elevation_chart");
+                    chartDiv.innerHTML = "No se pudo mostrar elevación " + e;
+                });
+        }
+
+        function plotElevation({ results })
+        {
+            const chartDiv = document.getElementById("elevation_chart");
+            // Create a new chart in the elevation_chart DIV.
+            const chart = new google.visualization.ColumnChart(chartDiv);
+            // Extract the data from which to populate the chart.
+            // Because the samples are equidistant, the 'Sample'
+            // column here does double duty as distance along the
+            // X axis.
+            const data = new google.visualization.DataTable();
+
+            data.addColumn("string", "Sample");
+            data.addColumn("number", "Elevación");
+
+            for (let i = 0; i < results.length; i++) {
+                data.addRow(["", results[i].elevation]);
+            }
+
+            // Draw the chart using the data within its DIV.
+            chart.draw(data, {
+                height: 150,
+                legend: "none",
+                titleY: "Elevación (msnm)",
+            });
+        }
+
+        function addMarker(props) {
+            var marker = new google.maps.Marker({
+                position: props.coords,
+                map: map
+            });
+            // Check for customicon
+            if (props.iconImage) {
+                marker.setIcon(props.iconImage);
+            }
+            // Check content
+            if (props.content) {
+                var infoWindow = new google.maps.InfoWindow({
+                    content: props.content
+                });
+                marker.addListener('click', function () {
+                    infoWindow.open(map, marker);
+                    populateModal(props.details);
+                });
+                if (props.details) {
+                    marker.owner = props.details.user;
+                }
+            }
+            markerArray.push(marker);
+        }
+
+        function populateModal(details)
+        {
+            document.getElementById("modalSiteName").innerHTML = details.name;
+            document.getElementById("modalSiteDesc").innerHTML = details.desc;
+            document.getElementById("modalSiteStage").innerHTML = 'Etapa: ' + details.stage;
+            document.getElementById("modalSiteID").innerHTML = details.id;
+        }
+
+        function stageSelected()
+        {
+
+            let value = this.value;
+
+            for (let i = 0; i < stageInfo.length; i++)
+                {
+                    if (stageInfo[i].id == value) {
+                        document.getElementById("name").innerHTML = "Nombre: " + stageInfo[i].name;
+                        document.getElementById("start").innerHTML = "Inicio: " + stageInfo[i].start;
+                        document.getElementById("finish").innerHTML = "Fin: " + stageInfo[i].finish;
+                        document.getElementById("distance").innerHTML = "Distancia: " + stageInfo[i].distance + " km";
+                        document.getElementById("minHeight").innerHTML = "Altura mínima: " + stageInfo[i].minAltimetry + " msnm";
+                        document.getElementById("maxHeight").innerHTML = "Altura máxima: " + stageInfo[i].maxAltimetry + " msnm";
+                        var datesSelector = document.getElementById("datesSelector");
+                        datesSelector.innerText = null;
+                        var count = 0;
+                        for (let j = 0; j < datesInfo.length; j++) {
+                            if (datesInfo[j].idStage == value) {
+                                var date = new Date(parseInt(/-?\d+/.exec(datesInfo[j].date)[0]));
+                                var today = new Date();
+                                if (date.getTime() >= today.getTime())
+                                {
+                                    for (let k = 0; k < inscriptionInfo.length; k++) {
+
+                                        if (inscriptionInfo[k].idDates == datesInfo[j].id) {
+                                            var capacity = (parseInt(datesInfo[j].capacity) - parseInt(inscriptionInfo[k].inscriptions));
+                                            if (capacity > 0) {
+                                                var option = document.createElement("option");
+                                                option.value = datesInfo[j].id;
+                                                option.text = date.toDateString() + " - " + capacity + " cupos";
+                                                datesSelector.add(option);
+                                                count++;
+                                                break;
+                                            }                                           
+                                        }
+                                     }                                
+                                }
+                            }
+                        }
+                        if (count == 0) {
+                            var option = document.createElement("option");
+                            option.value = -1;
+                            option.text = "No hay fechas disponibles";
+                            datesSelector.add(option);
+                        }
+                    }
+                }
+                let stagePath = createPathArray(pathInfo, value);
+                displayPathElevation(stagePath, elevator, map, value);
+
+            clearMarkers();
+
+            places = createMarkerArray(placeInfo, value);
+            for (let i = 0; i < places.length; i++) {
+                addMarker(places[i]);
+            }
+            sites = createSiteArray(siteInfo, value);
+            for (let i = 0; i < sites.length; i++) {
+                addMarker(sites[i]);
+            }
+        }
+
+        function createPathArray(pathInfo, stage)
+        {
+            let pathArray = [];
+            for (let i = 0; i < pathInfo.length; ++i)
+            {
+                if (stage == pathInfo[i].id_stage || stage == 0)
+                {
+                    pathArray.push(new google.maps.LatLng(pathInfo[i].latitude, pathInfo[i].longitude));
+                }
+            }
+            return pathArray;
+        }
+
+        function createMarkerArray(placeInfo, stage)
+        {
+            let markerArray = [];
+            for (let i = 0; i < placeInfo.length; ++i)
+            {
+                if (stage == placeInfo[i].id_stage || stage == 0)
+                {
+                    markerArray.push(
+                        {
+                            coords: new google.maps.LatLng(placeInfo[i].latitude, placeInfo[i].longitude),
+                            iconImage: 'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png',
+                            content: '<h3>' + placeInfo[i].name + '</h3>' + '<p>' + placeInfo[i].description + '</p>'
+                        }
+                    );
+                }
+            }
+            return markerArray;
+        }
+
+        function createSiteArray(siteInfo, stage)
+        {
+            let siteMarkerArray = [];
+            for (let i = 0; i < siteInfo.length; ++i) {
+                if (stage == siteInfo[i].idStage || stage == 0) {
+                    siteMarkerArray.push(
+                        {
+                            coords: new google.maps.LatLng(siteInfo[i].latitude, siteInfo[i].longitude),
+                            content: '<h3>' + siteInfo[i].name + '</h3>' + '<p>' + siteInfo[i].description + '</p>' +
+                                '<button id="showModalBtn" class="sp-btn-size lsc-btn-adjust btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#modalcontainer">Ver detalles</button>',
+                            details: { name: siteInfo[i].name, desc: siteInfo[i].description, stage: siteInfo[i].idStage, id: siteInfo[i].id, user: siteInfo[i].idUser }
+                        }
+                    );
+                }
+            }
+            return siteMarkerArray;
+        }
+
+        function clearMarkers()
+        {
+            for (let i = 0; i < markerArray.length; i++)
+            {
+                markerArray[i].setMap(null);
+            }
+            markerArray = [];
+        }
+
+        window.initMap = initMap;
+
+        function faveBtnClicked()
+        {
+            $.post({
+                url: '/Site/addSiteToFaves',
+                data: 'site=' + document.getElementById("modalSiteID").innerHTML,
+                success: function (data) {
+                    alert(data);
+                }
+            })
+        }
+
+        function siteToggleClicked()
+        {
+            console.log(markerArray);
+            if (siteToggle.textContent == "Ver sólo mis sitios") {
+                if (cookie) {
+                    siteToggle.textContent = "Ver todos los sitios";
+                    for (let i = 0; i < markerArray.length; i++) {
+                        if (markerArray[i].owner) {
+                            if (markerArray[i].owner != userID) {
+                                markerArray[i].setMap(null);
+                            }
+                        }
+                    }
+                } else {
+                    alert("Entre a su cuenta para ver sus sitios");
+                }
+            } else {
+                siteToggle.textContent = "Ver sólo mis sitios";
+                for (let i = 0; i < markerArray.length; i++) {
+                    markerArray[i].setMap(map);
+                }
+            }
+        }
+
+    </script>
+
+    <script async defer
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDCTYqs_Jmm73H0IRieidmcvFFvFY0DMXM&region=CR&language=es&callback=initMap">
+    </script>
+
+}

@@ -1,0 +1,211 @@
+﻿@model ElCaminoDeCostaRica.Models.Service
+@{
+    List<SelectListItem> suppliers = new List<SelectListItem>();
+    List<SelectListItem> categories = new List<SelectListItem>();
+    List<SelectListItem> stages = new List<SelectListItem>();
+    foreach (var supplier in ViewBag.Suppliers)
+    {
+        suppliers.Add(
+        new SelectListItem { Text = Convert.ToString(supplier.name), Value = Convert.ToString(supplier.id) }
+        );
+    }
+    foreach (var category in ViewBag.Categories)
+    {
+        categories.Add(
+        new SelectListItem { Text = Convert.ToString(category.name), Value = Convert.ToString(category.id) }
+        );
+    }
+    foreach (var stage in ViewBag.Stages)
+    {
+        stages.Add(
+        new SelectListItem { Text = Convert.ToString(stage.id), Value = Convert.ToString(stage.id) }
+        );
+    }
+}
+<<<<<<< HEAD
+<html>
+<head>
+</head>
+<body class="body_CategoryAdd">
+    <div class="container_Green formTitleCenter">
+        @{
+
+            using (Html.BeginForm("addService", "Service", FormMethod.Post, new { enctype = "multipart/form-data" }))
+            {
+                @Html.AntiForgeryToken()
+                <h1 class="formTitle" style="text-align:center">Crear servicio</h1>
+
+
+                <div class="form-style-9" ; style="color:black">
+                    @Html.LabelFor(model => model.name, new { @class = "formLabel" })
+                    @Html.TextBoxFor(model => model.name, new { @class = "form-control, formInput" })
+                    @Html.ValidationMessageFor(model => model.name, "", new { @class = "text-danger" })
+                </div>
+
+                <div class="form-style-9" ; style="color:black">
+                    @Html.LabelFor(model => model.description, new { @class = "formLabel" })
+                    @Html.TextBoxFor(model => model.description, new { @class = "form-control, formInput" })
+                    @Html.ValidationMessageFor(model => model.description, "", new { @class = "text-danger" })
+
+
+                </div>
+
+                <div class="form-style-9" ; style="color:black">
+                    @Html.LabelFor(model => model.idCategory, new { @class = "formLabel" })
+                    @Html.DropDownListFor(model => model.idCategory, categories, "-Sin selección - ", new { @class = "form - control" })
+                    @Html.ValidationMessageFor(model => model.idCategory, "", new { @class = "text-danger" })
+
+
+                </div>
+
+                <div class="form-style-9" ; style="color:black">
+                    @Html.LabelFor(model => model.idSupplier, new { @class = "formLabel" })
+                    @Html.DropDownListFor(model => model.idSupplier, suppliers, "-Sin selección - ", new { @class = "form - control" })
+                    @Html.ValidationMessageFor(model => model.idSupplier, "", new { @class = "text-danger" })
+
+
+                </div>
+
+                <div class="form-style-9" ; style="color:black">
+                    @Html.LabelFor(model => model.idStage, new { @class = "formLabel" })
+                    @Html.DropDownListFor(model => model.idStage, stages, "-Sin selección - ", new { @class = "form - control" })
+                    @Html.ValidationMessageFor(model => model.idStage, "", new { @class = "text-danger" })
+
+
+                </div>
+
+                <div>
+                    <input type="submit" class="btn btn-success btnCreate" value="Crear" />
+                </div>
+
+                if (ViewBag.Message != null)
+                {
+                    if (ViewBag.Success)
+                    {
+                        <div class="alert-success">
+                            <h3> @ViewBag.Message </h3>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="alert-danger">
+                            <h3> @ViewBag.Message </h3>
+                        </div>
+                    }
+                }
+            }
+        }
+    </div>
+=======
+}
+<html>
+<head>
+</head>
+<body>
+
+    @{
+
+        using (Html.BeginForm("addService", "Service", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+
+
+            @Html.AntiForgeryToken()
+
+            <section class="min-vh-100 " style=" font-size:x-large;">
+                <div class="container py-5 h-100">
+                    <div class="row d-flex justify-content-center align-items-center h-100">
+                        <div class="col col-xl-10">
+                            <div class="card" style="border-radius: 4rem; border-style: solid; border-color: #FAD586;">
+                                <div class="row g-0 mb-7">
+
+                                    <div class="col-md-6 col-lg-5 d-none d-md-block" ;>
+                                        <img src="https://cdn-icons-png.flaticon.com/512/121/121703.png"
+                                             alt="login form" class="img-fluid" style="border-radius: 1rem 0 0 1rem; margin: 8px 14px" />
+                                    </div>
+
+                                    <div class="col-md-6 col-lg-7 d-flex align-items-center" style="font-size:x-large">
+                                        <div class="card-body p-4 p-lg-5 text-black">
+
+
+                                            <form>
+
+                                                <h1 class="fw-normal mb-3 pb-3" style="letter-spacing: 1px; color: #184D47">Añadir Servicio</h1>
+
+                                                @Html.HiddenFor(model => model.id)
+
+                                            <div class="form-outline mb-4">
+                                                @Html.LabelFor(model => model.name, new { @class = "formLabel" })
+                                                @Html.TextBoxFor(model => model.name, new { @class = "form-control, form-control-lg" })
+                                                @Html.ValidationMessageFor(model => model.name, "", new { @class = "text-danger" })
+                                            </div>
+
+                                            <div class="form-outline mb-4">
+                                                @Html.LabelFor(model => model.description, new { @class = "formLabel" })
+                                                @Html.TextBoxFor(model => model.description, new { @class = "form-control, form-control-lg" })
+                                                @Html.ValidationMessageFor(model => model.description, "", new { @class = "text-danger" })
+
+                                            </div>
+
+                                            <div class="form-outline mb-4">
+                                                @Html.LabelFor(model => model.idCategory, new { @class = "formLabel" })
+                                                @Html.DropDownListFor(model => model.idCategory, categories, "-Sin selección - ", new { @class = "form-control, form-control-lg" })
+                                                @Html.ValidationMessageFor(model => model.idCategory, "", new { @class = "text-danger" })
+
+                                            </div>
+
+                                            <div class="form-outline mb-4">
+                                                @Html.LabelFor(model => model.idSupplier, new { @class = "formLabel" })
+                                                @Html.DropDownListFor(model => model.idSupplier, suppliers, "-Sin selección - ", new { @class = "form-control, form-control-lg" })
+                                                @Html.ValidationMessageFor(model => model.idSupplier, "", new { @class = "text-danger" })
+
+                                            </div>
+
+                                            <div class="form-outline mb-4">
+                                                @Html.LabelFor(model => model.idStage, new { @class = "formLabel" })
+                                                @Html.DropDownListFor(model => model.idStage, stages, "-Sin selección - ", new { @class = "form-control, form-control-lg" })
+                                                @Html.ValidationMessageFor(model => model.idStage, "", new { @class = "text-danger" })
+
+                                            </div>
+                                            
+
+
+
+                                                <div class="pt-1 mb-4">
+                                                    <a href="~/Views/Home/Index.cshtml">
+                                                        <input type="submit" class="rounded-3 btnLogin"
+                                                               style=" margin: 10px; background-color: #FAD586; color:black; "
+                                                               value="Guardar Cambios" />
+                                                    </a>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            if (ViewBag.Message != null)
+            {
+                if (ViewBag.Success)
+                {
+                    <div class="alert-success">
+                        <h3> @ViewBag.Message </h3>
+                    </div>
+                }
+                else
+                {
+                    <div class="alert-danger">
+                        <h3> @ViewBag.Message </h3>
+                    </div>
+                }
+            }
+        }
+    }
+
+>>>>>>> Cesar
+</body>
+@section Scripts { @Scripts.Render("~/bundles/jqueryval") }
+</html>

@@ -1,0 +1,284 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+            crossorigin="anonymous"></script>
+    <meta charset="utf-8" />
+    @Styles.Render("~/Content/css")
+    @Styles.Render("~/Content/Styles.css")
+    @Scripts.Render("~/Scripts/*js")
+<<<<<<< HEAD
+    <title>El Camino de Costa Rica</title>
+    <link rel="icon" type="image/x-icon" href=favicon.ico />
+=======
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
+    <title style="font-size:large">El Camino de Costa Rica</title>
+    <link rel="icon" type="image/x-icon" href="~/favicon.ico" />
+>>>>>>> Cesar
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <script>
+        function logOut() {
+            document.cookie = 'userLoginInfo=;expires=Thu, 01 Jan 1970 00:00:01 GMT;'
+            //TempData["Menu"] = "guest";
+        }
+    </script>
+</head>
+
+<<<<<<< HEAD
+<body class="body_Form">
+    
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+
+            <a class="navbar-brand" href="/Home">
+=======
+<body class="d-flex flex-column">
+
+    <nav class="navbar navbar-inverse navbar-expand-lg navbar-light nav-barGreen"
+          style="background-color: #96BB7C;
+                ">
+        <div class="container-fluid"
+             style="background-color: #96BB7C;">
+
+            <a class="navbar-brand" href="/Home" style="background-color: #96BB7C;">
+>>>>>>> Cesar
+                <img src="https://upload.wikimedia.org/wikipedia/commons/9/90/Logo_El_Camino_de_Costa_Rica.jpg"
+                     alt="" width="30" height="24" class="d-inline-block align-text-top">
+                El Camino de Costa Rica
+            </a>
+<<<<<<< HEAD
+
+            <div class="collapse navbar-collapse" id="navbarNavDropdown">
+=======
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarNav" style="background-color: #96BB7C;">
+>>>>>>> Cesar
+                <ul class="navbar-nav">
+                    @switch (TempData.Peek("Menu"))
+                    {
+
+                        case "user":
+
+<<<<<<< HEAD
+                            <nav class="navbar navbar-light bg-light">
+=======
+                            <nav class="navbar navbar-light bg-light" style="background-color: #96BB7C;">
+>>>>>>> Cesar
+                                <div class="container-fluid">
+                                    <a class="nav-link" href="/Route/Index">
+                                        La Ruta
+                                    </a>
+                                </div>
+                            </nav>
+
+<<<<<<< HEAD
+                            <li class="nav-item">
+                                <a class="btn-sm" style="background-color:white" onclick="logOut()" id="lo_Btn" href="/">
+                                    <img src="https://cdn-icons.flaticon.com/png/512/3889/premium/3889524.png?token=exp=1655252205~hmac=51c1cdea93f870c648e07530ba7bb55a"
+                                         alt="" width="30" height="24" class="d-inline-block align-text-top">
+                                </a>
+                            </li>
+=======
+                            <nav class="nav-item dropdown" style="background-color: #96BB7C;">
+                                <a class="btn-sm" style="background-color:white" onclick="logOut()" id="lo_Btn" href="/">
+                                    <img src="~/images/logout.png"
+                                         alt="" width="30" height="24" class="d-inline-block align-text-top">
+                                </a>
+                            </nav>
+>>>>>>> Cesar
+
+                            break;
+
+                        case "admin":
+
+<<<<<<< HEAD
+                            <nav class="navbar navbar-light bg-light">
+                                <div class="container-fluid">
+                                    <a class="nav-link" href="/Register/userlist">
+                                        Usuarios Registrados
+                                    </a>
+                                </div>
+                            </nav>
+                            <nav class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Categorias
+                                </a>
+                                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <li><a class="dropdown-item" href="/Category/categoryList">Lista de Categorias</a></li>
+                                    <li><hr class="dropdown-divider"></li>
+                                    <li><a class="dropdown-item" href="/Category/addCategory">Añadir Categorias</a></li>
+                                </ul>
+                            </nav>
+                            <nav class="nav-item dropdown">
+=======
+                            <nav class="nav-item" style="background-color: #96BB7C;">
+                                <a href="/Register/userlist" class="nav-link d"
+                                   role="link" aria-current="page">
+                                    Usuarios Registrados
+                                </a>
+                            </nav>
+
+                            <nav class="nav-item dropdown" style="background-color: #96BB7C;">
+>>>>>>> Cesar
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Proveedores
+                                </a>
+                                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <li><a class="dropdown-item" href="/Supplier/supplierList">Lista de Proveedores</a></li>
+                                    <li><hr class="dropdown-divider"></li>
+                                    <li><a class="dropdown-item" href="/Supplier/addSupplier">Añadir Proveedores</a></li>
+                                </ul>
+                            </nav>
+<<<<<<< HEAD
+                            <nav class="nav-item dropdown">
+=======
+                            <nav class="nav-item dropdown" style="background-color: #96BB7C;">
+>>>>>>> Cesar
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Servicios
+                                </a>
+                                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <li><a class="dropdown-item" href="/Service/serviceList">Lista de Servicios</a></li>
+                                    <li><hr class="dropdown-divider"></li>
+                                    <li><a class="dropdown-item" href="/Service/addService">Añadir Servicios</a></li>
+                                </ul>
+                            </nav>
+<<<<<<< HEAD
+                            <nav class="nav-item dropdown">
+=======
+
+                            <nav class="nav-item dropdown" style="background-color: #96BB7C;">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Categorias
+                                </a>
+                                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <li><a class="dropdown-item" href="/Category/categoryList">Lista de Categorias</a></li>
+                                    <li><hr class="dropdown-divider"></li>
+                                    <li><a class="dropdown-item" href="/Category/addCategory">Añadir Categorias</a></li>
+                                </ul>
+                            </nav>
+
+                            <nav class="nav-item dropdown" style="background-color: #96BB7C;">
+>>>>>>> Cesar
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Rutas
+                                </a>
+                                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <li><a class="dropdown-item" href="/Route/routeList">Lista de Rutas</a></li>
+                                    <li><hr class="dropdown-divider"></li>
+                                    <li><a class="dropdown-item" href="/Route/addRoute">Añadir Rutas</a></li>
+                                </ul>
+                            </nav>
+<<<<<<< HEAD
+                            <nav class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+=======
+
+                            <nav class="nav-item dropdown" style="background-color: #96BB7C;">
+                                <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+>>>>>>> Cesar
+                                    Etapas
+                                </a>
+                                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <li><a class="dropdown-item" href="/Stage/stageList">Lista de Etapas</a></li>
+                                    <li><hr class="dropdown-divider"></li>
+                                    <li><a class="dropdown-item" href="/Stage/addStage">Añadir Etapas</a></li>
+                                </ul>
+                            </nav>
+<<<<<<< HEAD
+                            <nav class="navbar navbar-light bg-light">
+                                <div class="container-fluid">
+
+                                </div>
+                            </nav>
+
+                            <a class="btn-sm" style="background-color:white" onclick="logOut()" id="lo_Btn" href="/">
+                                <img src="https://cdn-icons.flaticon.com/png/512/3889/premium/3889524.png?token=exp=1655252205~hmac=51c1cdea93f870c648e07530ba7bb55a"
+                                     alt="" width="30" height="24" class="d-inline-block align-text-top">
+                            </a>
+=======
+
+                            <nav class="navbar nav-item" style="background-color:transparent" onclick="logOut()" id="lo_Btn"
+                                 href="/" style="background-color: #96BB7C;">
+                                <img src="~/images/logout.png"
+                                     alt="" width="30" height="24" class="d-inline-block align-text-top">
+                            </nav>
+>>>>>>> Cesar
+
+                            break;
+
+                        default:
+<<<<<<< HEAD
+                            <nav class="navbar navbar-light bg-light">
+                                <div class="container-fluid">
+                                    <a class="nav-link" href="/Route">
+                                        La Ruta
+                                    </a>
+                                </div>
+                            </nav>
+                            <nav class="navbar navbar-light bg-light">
+                                <div class="container-fluid">
+                                    <a class="nav-link" href="/Register/Register">
+                                        Registrarse
+                                    </a>
+                                </div>
+                            </nav>
+                            <nav class="navbar navbar-light bg-light">
+                                <div class="container-fluid">
+                                    <a class="nav-link" href="/Login/Login">
+                                        Iniciar Sesion
+                                    </a>
+                                </div>
+=======
+                            <nav class="nav-item" style="background-color: #96BB7C;">
+                                <a class="nav-link"
+                                   role="link" aria-current="page" href="/Route">
+                                    La Ruta
+                                </a>
+                            </nav>
+                            <nav class="nav-item " style="background-color: #96BB7C;">
+                                <a class="nav-link"
+                                   role="link" aria-current="page" href="/Register/Register">
+                                    Registrarse
+                                </a>
+                            </nav>
+                            <nav class="nav-item" style="background-color: #96BB7C;">
+                                <a class="nav-link "
+                                   role="link" aria-current="page" href="/Login/Login">
+                                    Iniciar Sesion
+                                </a>
+>>>>>>> Cesar
+                            </nav>
+
+                            break;
+                    }
+
+
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="body_Form">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - El Camino de Costa Rica</p>
+        </footer>
+    </div>
+
+
+
+
+    @Scripts.Render("~/Scripts/jquery")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

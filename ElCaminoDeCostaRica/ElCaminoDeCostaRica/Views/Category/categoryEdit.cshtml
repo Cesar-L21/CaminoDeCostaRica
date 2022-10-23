@@ -1,0 +1,103 @@
+﻿@model ElCaminoDeCostaRica.Models.Category
+
+
+<html>
+<head>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/Content/Styles.css")
+    <link rel="stylesheet" href="Styles.css" />
+    <link rel="icon" type="image/x-icon" href=favicon.ico />
+    <title>EL CAMINO DE COSTA RICA</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+</head>
+<<<<<<< HEAD
+<body class="body_Index">
+
+    <div class="container_Rose formTitleCenter">
+
+        @using (Html.BeginForm("categoryEdit", "Category", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+
+@Html.AntiForgeryToken()
+                <h1>Formulario de edicion de categoria</h1>
+                                <div class="form-horizontal">
+                                    @Html.HiddenFor(model => model.id)
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.name)
+                                        @Html.TextBoxFor(model => model.name, new { @class = "formcontrol" })
+                                        @Html.ValidationMessageFor(model => model.name, "", new { @class = "text-danger" })
+                                    </div>
+                                    <div>
+                                        <input type="submit" class="btn btn-success" value="Aplicar cambios" />
+                                    </div>
+                                </div>}
+    </div>
+=======
+<body>
+
+
+    @using (Html.BeginForm("categoryEdit", "Category", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+
+        @Html.AntiForgeryToken()
+
+
+
+        <section class="min-vh-100 " style=" font-size:x-large;">
+            <div class="container py-5 h-100">
+                <div class="row d-flex justify-content-center align-items-center h-100">
+                    <div class="col col-xl-10">
+                        <div class="card" style="border-radius: 4rem; border-style: solid; border-color: #FAD586;">
+                            <div class="row g-0 mb-7">
+
+                                <div class="col-md-6 col-lg-5 d-none d-md-block" ;>
+                                    <img src="https://cdn-icons-png.flaticon.com/512/82/82122.png"
+                                         alt="login form" class="img-fluid" style="border-radius: 1rem 0 0 1rem; margin: 8px 14px" />
+                                </div>
+
+                                <div class="col-md-6 col-lg-7 d-flex align-items-center" style="font-size:x-large">
+                                    <div class="card-body p-4 p-lg-5 text-black">
+                                        @Html.HiddenFor(model => model.id)
+
+                                        <form>
+
+                                            <h1 class="fw-normal mb-3 pb-3" style="letter-spacing: 1px; color: #184D47">Modificar Categoria</h1>
+
+                                            <div class="form-outline mb-4">
+                                                <label class="form-label" for="form2Example17">  Nombre de categoria </label>
+                                                @Html.TextBoxFor(model => model.name, new { @class = "form-control,form-control-lg" })
+                                                @Html.ValidationMessageFor(model => model.name, "", new { @class = "text-danger" })
+                                            </div>
+
+
+                                            <div class="pt-1 mb-4">
+                                                <a href="~/Views/Home/Index.cshtml">
+                                                    <input type="submit" class="rounded-3 btnLogin"
+                                                           style=" margin: 10px; background-color: #FAD586; color:black; "
+                                                           value="Guardar Cambios" />
+                                                </a>
+                                            </div>
+
+
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    }
+
+>>>>>>> Cesar
+</body>
+@section Scripts
+{
+    @Scripts.Render("~/bundles/jqueryval")
+}
+</html>
+

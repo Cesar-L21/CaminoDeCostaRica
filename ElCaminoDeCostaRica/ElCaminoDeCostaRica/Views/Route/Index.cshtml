@@ -1,0 +1,496 @@
+﻿@{
+    /**/
+
+    /**/
+
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<style>
+    #map {
+        height: 500px;
+        width: 100%;
+    }
+</style>
+
+<<<<<<< HEAD
+<br>
+<br>
+<br>
+<br>
+<h2>Camino de Costa Rica</h2>
+<h3>Ruta @ViewBag.RouteInfo[0].id</h3>
+<h3>Inicio: @ViewBag.RouteInfo[0].start</h3>
+<h3>Fin: @ViewBag.RouteInfo[0].finish</h3>
+<h3>Distancia: @ViewBag.RouteInfo[0].distance km</h3>
+<h3></h3>
+
+<script src="https://www.google.com/jsapi"></script>
+
+<div id="map"></div>
+<div id="elevation_chart"></div>
+
+@section scripts {
+    <script type="text/javascript">
+
+        let map;
+        let elevator;
+        google.load("visualization", "1", { packages: ["columnchart"] });
+
+        function createPathArray(pathInfo)
+        {
+            let pathArray = [];
+            for (let i = 0; i < pathInfo.length; ++i)
+            {
+                pathArray.push(new google.maps.LatLng(pathInfo[i].latitude, pathInfo[i].longitude));
+            }
+            return pathArray;
+        }
+
+        function createMarkerArray(placeInfo)
+        {
+            let markerArray = [];
+            for (let i = 0; i < placeInfo.length; ++i)
+            {
+                markerArray.push(
+                    {
+                        coords: new google.maps.LatLng(placeInfo[i].latitude, placeInfo[i].longitude),
+                        iconImage: 'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png',
+                        content: '<h3>' + placeInfo[i].name+'</h3>' + '<p>' + placeInfo[i].description+'</p>'
+                    }
+                );
+            }
+            return markerArray;
+        }
+
+        function initMap()
+        {
+            var options = {
+=======
+
+<div class="formTitleCenter" style="color: #184D47">
+    <h2>Rutas Del Camino De Costa Rica</h2>
+    <h3>Ruta @ViewBag.RouteInfo[0].id</h3>
+    <h3>Inicio: @ViewBag.RouteInfo[0].start</h3>
+    <h3>Fin: @ViewBag.RouteInfo[0].finish</h3>
+    <h3>Distancia: @ViewBag.RouteInfo[0].distance km</h3>
+    <h3></h3>
+</div>
+
+
+<div class="row w-100 mb-3" style="margin-left:10px ; margin-right:0px;  border-radius: 2rem; border-style: solid; border-color: #FAD586;">
+    <div class="col-lg-6 mb-5 mt-2 ">
+
+        <div id="map" class="container-fluid " style=" border-radius:2rem;"></div>
+        <div id="elevation_chart" class="container-fluid " style=" border-radius:2rem;"></div>
+
+    </div>
+    <div class="col-lg-6   align-items-center mt-2  ">
+        <!--Lista de etapas-->
+
+        <div class="w-25 h-25">
+
+            <div for="stageSelector">
+                <h2 style="color: #184D47">Información de  Etapas </h2>
+            </div>
+            <div><select class="form-select form-select-lg mb-3 " style="color: #184D47"
+                    name="stageSelector" id="stageSelector">
+                <option value="" selected disabled hidden> Etapas</option>
+                @foreach (var stage in ViewBag.stageInfo)
+                {
+                    <option value=@stage.id>@stage.id</option>
+                }
+            </select></div>
+
+            <div style="width:max-content; font-size:x-large">
+                <ul class="list-group" style="color:#FAD586">
+                    <li class="list-group-item" id="name">Nombre</li>
+                    <li class="list-group-item" id="start">Inicio: </li>
+                    <li class="list-group-item" id="finish">Fin: </li>
+                    <li class="list-group-item" id="distance">Distancia: </li>
+                    <li class="list-group-item" id="minHeight">Altura mínima: </li>
+                    <li class="list-group-item" id="maxHeight">Altura máxima: </li>
+                    @{
+
+                        <li class="list-group-item"><a class="btn btn-default">Inscribirme en la etapa </a></li>
+
+                    }
+
+                </ul>
+
+
+            </div>
+        </div>
+
+
+
+
+
+
+
+
+
+
+        <script src="https://www.google.com/jsapi"></script>
+
+
+
+    </div>
+
+
+<div>
+    <!--Lista de etapas-->
+    <label for="stageSelector">Elija una etapa para ver su información:</label>
+    <select name="stageSelector" id="stageSelector">
+        <option value="" selected disabled hidden>Etapas</option>
+        @foreach (var stage in ViewBag.stageInfo)
+        {
+            <option value=@stage.id>@stage.id</option>
+        }
+    </select>
+
+    <div>
+
+        <p id="name">Nombre</p>
+        <p id="start">Inicio: </p>
+        <p id="finish">Fin: </p>
+        <p id="distance">Distancia: </p>
+        <p id="minHeight">Altura mínima: </p>
+        <p id="maxHeight">Altura máxima: </p>
+
+    </div>
+
+    <div>
+            @Html.ActionLink("Inscribirse", "Inscription", null, new { @class = "btn btn alert-info",
+           @onclick = "this.href += '/identificador=' + document.getElementById('stageSelector').value;" })
+        </div>
+
+</div>
+
+
+@section scripts {
+    <script type="text/javascript">
+        var map;
+        var elevator;
+        var places;
+        var markerArray = [];
+        var currentStageLine;
+        var valor;
+        google.load("visualization", "1", { packages: ["columnchart"] });
+        let pathInfo = @Html.Raw(Json.Encode(@ViewBag.pathInfo));
+        let placeInfo = @Html.Raw(Json.Encode(@ViewBag.placeInfo));
+        let stageInfo = @Html.Raw(Json.Encode(@ViewBag.stageInfo));
+        
+        console.log(placeInfo);
+        console.log(stageInfo);
+        console.log(pathInfo);
+
+
+        function obtener() {
+          
+            valor = document.getElementById('stageSelector').value;
+        }
+        console.log(valor);
+
+        function initMap()
+        {
+            let options = {
+>>>>>>> Cesar
+                zoom: 8,
+                center: { lat: 9.854328, lng: -83.610901 },
+                mapTypeId: 'satellite'
+            }
+            map = new google.maps.Map(document.getElementById('map'), options);
+<<<<<<< HEAD
+
+            const elevator = new google.maps.ElevationService();
+=======
+            currentStageLine = new google.maps.Polyline();
+            elevator = new google.maps.ElevationService();
+>>>>>>> Cesar
+            const infowindow = new google.maps.InfoWindow({});
+
+            infowindow.open(map);
+            //Display the elevation for the LatLng of the click inside the infowindow.
+            map.addListener("click", (event) => {
+                displayLocationElevation(event.latLng, elevator, infowindow);
+            });
+<<<<<<< HEAD
+
+            let pathInfo = @Html.Raw(Json.Encode(@ViewBag.pathInfo));
+            let path = createPathArray(pathInfo);
+
+            let placeInfo = @Html.Raw(Json.Encode(@ViewBag.placeInfo));
+            let places = createMarkerArray(placeInfo);
+            for (var i = 0; i < places.length; i++)
+            {
+                addMarker(places[i]);
+            }
+
+            displayPathElevation(path, elevator, map);
+
+            function addMarker(props)
+            {
+                var marker = new google.maps.Marker({
+                    position: props.coords,
+                    map: map,
+                    //icon:props.iconImage
+                });
+                // Check for customicon
+                if (props.iconImage)
+                {
+                    marker.setIcon(props.iconImage);
+                }
+                // Check content
+                if (props.content)
+                {
+                    var infoWindow = new google.maps.InfoWindow({
+                        content: props.content
+                    });
+                    marker.addListener('click', function () {
+                        infoWindow.open(map, marker);
+                    });
+                }
+            }
+=======
+            
+            let path = createPathArray(pathInfo, 0);
+            displayPathElevation(path, elevator, map, 0);
+
+            places = createMarkerArray(placeInfo, 0);
+            for (let i = 0; i < places.length; i++)
+            {
+                addMarker(places[i]);
+            }
+>>>>>>> Cesar
+        }
+
+        function displayLocationElevation(location, elevator, infowindow)
+        {
+            // Initiate the location request
+            elevator
+                .getElevationForLocations({
+                    locations: [location],
+                })
+                .then(({ results }) => {
+                    infowindow.setPosition(location);
+                    // Retrieve the first result
+                    if (results[0]) {
+                        // Open the infowindow indicating the elevation at the clicked position.
+                        infowindow.setContent(
+                            "Elevación:<br> " +
+                            results[0].elevation +
+                            " metros."
+                        );
+                    } else {
+                        infowindow.setContent("Sin resultados");
+                    }
+                })
+                .catch((e) =>
+                    infowindow.setContent("Servicio de elevación falló: " + e)
+                );
+        }
+
+<<<<<<< HEAD
+        function displayPathElevation(path, elevator, map)
+        {
+            new google.maps.Polyline({
+                path: path,
+                strokeColor: "#ffb703",
+                strokeOpacity: 0.8,
+                map: map,
+            });
+=======
+        function displayPathElevation(path, elevator, map, stage)
+        {
+            if (stage == 0) {
+                new google.maps.Polyline({
+                    path: path,
+                    strokeColor: "#ffb703",
+                    strokeOpacity: 0.9,
+                    map: map,
+                });
+            } else {
+                currentStageLine.setMap(null);
+                currentStageLine = new google.maps.Polyline({
+                    path: path,
+                    strokeColor: "#28FF28",
+                    strokeOpacity: 0.9,
+                    map: map,
+                });
+
+            }
+
+            if (stage == 0) {
+                new google.maps.Polyline({
+                    path: path,
+                    strokeColor: "#ffb703",
+                    strokeOpacity: 0.9,
+                    map: map,
+                });
+            } else {
+                currentStageLine.setMap(null);
+                currentStageLine = new google.maps.Polyline({
+                    path: path,
+                    strokeColor: "#28FF28",
+                    strokeOpacity: 0.9,
+                    map: map,
+                });
+                
+            }
+            
+>>>>>>> Cesar
+            // Create a PathElevationRequest object using this array.
+            // Ask for 256 samples along that path.
+            // Initiate the path request.
+            elevator
+                .getElevationAlongPath({
+                    path: path,
+                    samples: 256,
+                })
+                .then(plotElevation)
+                .catch((e) => {
+                    const chartDiv = document.getElementById("elevation_chart");
+                    chartDiv.innerHTML = "No se pudo mostrar elevación " + e;
+                });
+        }
+
+        function plotElevation({ results })
+        {
+            const chartDiv = document.getElementById("elevation_chart");
+            // Create a new chart in the elevation_chart DIV.
+            const chart = new google.visualization.ColumnChart(chartDiv);
+            // Extract the data from which to populate the chart.
+            // Because the samples are equidistant, the 'Sample'
+            // column here does double duty as distance along the
+            // X axis.
+            const data = new google.visualization.DataTable();
+
+            data.addColumn("string", "Sample");
+<<<<<<< HEAD
+            data.addColumn("number", "Elevation");
+=======
+            data.addColumn("number", "Elevación");
+>>>>>>> Cesar
+
+            for (let i = 0; i < results.length; i++) {
+                data.addRow(["", results[i].elevation]);
+            }
+
+            // Draw the chart using the data within its DIV.
+            chart.draw(data, {
+                height: 150,
+                legend: "none",
+<<<<<<< HEAD
+                titleY: "Elevación (m)",
+            });
+        }
+        window.initMap = initMap;
+    </script>
+    <script async defer
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDCTYqs_Jmm73H0IRieidmcvFFvFY0DMXM&callback=initMap">
+    </script>
+=======
+                titleY: "Elevación (msnm)",
+            });
+        }
+
+        function addMarker(props) {
+            var marker = new google.maps.Marker({
+                position: props.coords,
+                map: map
+            });
+            // Check for customicon
+            if (props.iconImage) {
+                marker.setIcon(props.iconImage);
+            }
+            // Check content
+            if (props.content) {
+                var infoWindow = new google.maps.InfoWindow({
+                    content: props.content
+                });
+                marker.addListener('click', function () {
+                    infoWindow.open(map, marker);
+                });
+            }
+            markerArray.push(marker);
+        }
+
+        document.getElementById("stageSelector").onchange = stageSelected;
+        function stageSelected()
+        {
+            let value = this.value;
+            for (let i = 0; i < stageInfo.length; i++)
+            {
+                if (stageInfo[i].id == value) {
+                    document.getElementById("start").innerHTML = "Inicio: " + stageInfo[i].start;
+                    document.getElementById("finish").innerHTML = "Fin: " + stageInfo[i].finish;
+                    document.getElementById("distance").innerHTML = "Distancia: " + stageInfo[i].distance + " km";
+                    document.getElementById("minHeight").innerHTML = "Altura mínima: " + stageInfo[i].minAltimetry + " msnm";
+                    document.getElementById("maxHeight").innerHTML = "Altura máxima: " + stageInfo[i].maxAltimetry + " msnm";
+                }
+            }
+            let stagePath = createPathArray(pathInfo, value);
+            displayPathElevation(stagePath, elevator, map, value);
+
+            clearMarkers();
+            places = createMarkerArray(placeInfo, value);
+            for (let i = 0; i < places.length; i++) {
+                addMarker(places[i]);
+            }
+        }
+
+        function createPathArray(pathInfo, stage)
+        {
+            let pathArray = [];
+            for (let i = 0; i < pathInfo.length; ++i)
+            {
+                if (stage == pathInfo[i].id_stage || stage == 0)
+                {
+                    pathArray.push(new google.maps.LatLng(pathInfo[i].latitude, pathInfo[i].longitude));
+                }
+            }
+            return pathArray;
+        }
+
+        function createMarkerArray(placeInfo, stage)
+        {
+            let markerArray = [];
+            for (let i = 0; i < placeInfo.length; ++i)
+            {
+                if (stage == placeInfo[i].id_stage || stage == 0)
+                {
+                    markerArray.push(
+                        {
+                            coords: new google.maps.LatLng(placeInfo[i].latitude, placeInfo[i].longitude),
+                            iconImage: 'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png',
+                            content: '<h3>' + placeInfo[i].name + '</h3>' + '<p>' + placeInfo[i].description + '</p>'
+                        }
+                    );
+                }
+            }
+            return markerArray;
+        }
+
+        function clearMarkers()
+        {
+            for (let i = 0; i < markerArray.length; i++)
+            {
+                markerArray[i].setMap(null);
+            }
+            markerArray = [];
+        }
+
+        window.initMap = initMap;
+    </script>
+
+    <script async defer
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDCTYqs_Jmm73H0IRieidmcvFFvFY0DMXM&callback=initMap">
+    </script>
+        
+>>>>>>> Cesar
+}

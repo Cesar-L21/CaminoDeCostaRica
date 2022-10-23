@@ -1,0 +1,74 @@
+﻿@model ElCaminoDeCostaRica.Models.Feedback
+@{ ViewBag.Title = "Feedbacks"; }
+<html>
+<head>
+</head>
+
+<body class="body_Index">
+
+<<<<<<< HEAD
+    <h1 align="center" style="color:black; font-family:Agrozza Demo">Lista de feedbacks</h1>
+    <div class="seccion_1" id="s1">
+        <table class="table">
+            <tr>
+                <th class="text-center">Encuesta</th>
+                <th class="text-center">Servicio</th>
+                <th class="text-center">Rating</th>
+                <th class="text-center">Comentarios</th>
+
+=======
+
+    <div class="table-responsive m-lg-2">
+        <table class="table">
+            <h1 align="center" style="color: #184D47; font-family: Agrozza Demo">Lista de Evaluaciones</h1>
+            <tr style="color: #184D47">
+                <th scope="col" class="text-center">Encuesta</th>
+                <th scope="col" class="text-center">Servicio</th>
+                <th scope="col" class="text-center">Rating</th>
+                <th scope="col" class="text-center">Comentarios</th>
+>>>>>>> Cesar
+            </tr>
+            <tbody>
+                @foreach (var feedback in ViewBag.feedbacks)
+                {
+                    <tr>
+<<<<<<< HEAD
+                        <td class="text-center"> @feedback.idSurvey </td>
+                        <td class="text-center"> @feedback.idService </td>
+                        <td class="text-center"> @feedback.rating </td>
+                        <td class="text-center"> @feedback.comments </td>
+
+                        <td>
+                            @Html.ActionLink("Modificar", "", new { },
+                                      new { @class = "btn btn alert-info", @onclick = "return confirm('¿Quiere modificar este feedback ? ');" })
+                        </td>
+                        <td>
+                            @Html.ActionLink("Borrar", "feedbackDelete", new { identificador = feedback.idSurvey },
+                                  new { @class = "btn btn alert-info", @onclick = "return confirm('¿Quiere borrar este feedback? ');" })
+=======
+                        <td class="text-center" scope="col"> @feedback.idSurvey </td>
+                        <td class="text-center" scope="col"> @feedback.idService </td>
+                        <td class="text-center" scope="col"> @feedback.rating </td>
+                        <td class="text-center" scope="col"> @feedback.comments </td>
+
+                        <td scope="row" class="text-center">
+                            @Html.ActionLink("Modificar", "", new { },
+                                           new { @class = "btnLogin alert-info", @onclick = "return confirm('¿Quiere modificar este feedback ? ');" })
+                        </td>
+                        <td scope="row" class="text-center">
+                            @Html.ActionLink("Borrar", "feedbackDelete", new { identificador = feedback.idSurvey },
+                                      new { @class = "btnLogin alert-info", @onclick = "return confirm('¿Quiere borrar este feedback? ');" })
+>>>>>>> Cesar
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+<<<<<<< HEAD
+    </div>
+=======
+
+>>>>>>> Cesar
+</body>
+</html>
+

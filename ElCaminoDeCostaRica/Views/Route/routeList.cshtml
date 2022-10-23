@@ -1,0 +1,46 @@
+﻿@model ElCaminoDeCostaRica.Models.Route
+@{ ViewBag.Title = "Rutas"; }
+<html>
+<head>
+</head>
+
+<body class="body_Index">
+
+
+    <div class="table-responsive m-lg-2">
+        <table class="table">
+            <h1 align="center" style="color: #184D47; font-family: Agrozza Demo">Lista de Rutas</h1>
+            <tr style="color: #184D47">
+                <th scope="row" class="text-center">Id</th>
+                <th scope="row" class="text-center">Inicio</th>
+                <th scope="row" class="text-center">Final</th>
+                <th scope="row" class="text-center">Distancia en KM</th>
+            <tbody>
+                @foreach (var route in ViewBag.routes)
+                {
+                    <tr>
+                        <td class="text-center" scope="row"> @route.id </td>
+                        <td class="text-center" scope="row"> @route.start </td>
+                        <td class="text-center" scope="row"> @route.finish </td>
+                        <td class="text-center" scope="row"> @route.distance </td>
+
+
+                        <td>
+                            @Html.ActionLink("Modificar", "routeEdit", new { identificador = route.id },
+                                      new { @class = "btnLogin alert-info", @onclick = "return confirm('¿Quiere modificar esta ruta ? ');" })
+                        </td>
+                        <td>
+                            @Html.ActionLink("Borrar", "routeDelete", new { identificador = route.id },
+                                  new { @class = "btnLogin alert-info", @onclick = "return confirm('¿Quiere borrar esta ruta? ');" })
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+
+
+    </div>
+
+</body>
+</html>

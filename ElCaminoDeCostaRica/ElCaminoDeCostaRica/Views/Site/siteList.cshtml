@@ -1,0 +1,94 @@
+﻿@model ElCaminoDeCostaRica.Models.Site
+@{ ViewBag.Title = "Sitios"; }
+<html>
+<head>
+</head>
+
+<body class="body_Login">
+
+<<<<<<< HEAD
+=======
+
+
+    <div class="table-responsive m-lg-2">
+        <table class="table">
+            <h1 align="center" style="color: #184D47; font-family: Agrozza Demo">Lista de usuarios</h1>
+            <tr style="color: #184D47">
+
+                <th scope="row" class="text-center">Id</th>
+                <th scope="row" class="text-center">Nombre</th>
+                <th scope="row" class="text-center">Descripcion</th>
+                <th scope="row" class="text-center">Longitud</th>
+                <th scope="row" class="text-center">Latitud</th>
+                <th scope="row" class="text-center">Usuario</th>
+                <th scope="row" class="text-center">Etapa</th>
+            </tr>
+            <tbody>
+                @foreach (var site in ViewBag.sites)
+                {
+                    <tr>
+                        <td scope="row" class="text-center"> @site.id </td>
+                        <td scope="row" class="text-center"> @site.name </td>
+                        <td scope="row" class="text-center"> @site.description </td>
+                        <td scope="row" class="text-center"> @site.longitude </td>
+                        <td scope="row" class="text-center"> @site.latitude </td>
+                        <td scope="row" class="text-center"> @site.idUser </td>
+                        <td scope="row" class="text-center"> @site.idStage </td>
+
+                        <td scope="row" >
+                            @Html.ActionLink("Modificar", "", new { identificador = site.id },
+                                      new { @class = "btn btn alert-info", @onclick = "return confirm('¿Quiere modificar este sitio ? ');" })
+                        </td>
+                        <td scope="row" >
+                            @Html.ActionLink("Borrar", "siteDelete", new { identificador = site.id },
+                                  new { @class = "btn btn alert-info", @onclick = "return confirm('¿Quiere borrar este sitio? ');" })
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+
+
+    </div>
+
+>>>>>>> Cesar
+    <h1 align="center" style="color:black; font-family:Agrozza Demo">Lista de sitios</h1>
+    <div class="seccion_1" id="s1">
+        <table class="table">
+            <tr>
+                <th class="text-center">Id</th>
+                <th class="text-center">Nombre</th>
+                <th class="text-center">Descripcion</th>
+                <th class="text-center">Longitud</th>
+                <th class="text-center">Latitud</th>
+                <th class="text-center">Usuario</th>
+                <th class="text-center">Etapa</th>
+            </tr>
+            <tbody>
+                @foreach (var site in ViewBag.sites)
+                {
+                    <tr>
+                        <td class="text-center"> @site.id </td>
+                        <td class="text-center"> @site.name </td>
+                        <td class="text-center"> @site.description </td>
+                        <td class="text-center"> @site.longitude </td>
+                        <td class="text-center"> @site.latitude </td>
+                        <td class="text-center"> @site.idUser </td>
+                        <td class="text-center"> @site.idStage </td>
+
+                        <td>
+                            @Html.ActionLink("Modificar", "", new { identificador = site.id },
+                                      new { @class = "btn btn alert-info", @onclick = "return confirm('¿Quiere modificar este sitio ? ');" })
+                        </td>
+                        <td>
+                            @Html.ActionLink("Borrar", "siteDelete", new { identificador = site.id },
+                                  new { @class = "btn btn alert-info", @onclick = "return confirm('¿Quiere borrar este sitio? ');" })
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

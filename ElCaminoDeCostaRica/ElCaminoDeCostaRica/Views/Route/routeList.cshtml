@@ -1,0 +1,78 @@
+﻿@model ElCaminoDeCostaRica.Models.Route
+@{ ViewBag.Title = "Rutas"; }
+<html>
+<head>
+</head>
+
+<body class="body_Index">
+
+<<<<<<< HEAD
+    <h1 class="formTitleCenter">Lista de rutas</h1>
+    <div class="container_Green" id="s1">
+        <table class="table">
+            <tr>
+                <th class="text-center">Id</th>
+                <th class="text-center">Inicio</th>
+                <th class="text-center">Final</th>
+                <th class="text-center">Distancia en KM</th>
+
+            </tr>
+=======
+
+    <div class="table-responsive m-lg-2">
+        <table class="table">
+            <h1 align="center" style="color: #184D47; font-family: Agrozza Demo">Lista de Rutas</h1>
+            <tr style="color: #184D47">
+                <th scope="row" class="text-center">Id</th>
+                <th scope="row" class="text-center">Inicio</th>
+                <th scope="row" class="text-center">Final</th>
+                <th scope="row" class="text-center">Distancia en KM</th>
+>>>>>>> Cesar
+            <tbody>
+                @foreach (var route in ViewBag.routes)
+                {
+                    <tr>
+<<<<<<< HEAD
+                        <td class="text-center"> @route.id </td>
+                        <td class="text-center"> @route.start </td>
+                        <td class="text-center"> @route.finish </td>
+                        <td class="text-center"> @route.distance </td>
+
+                        <td>
+                            @Html.ActionLink("Modificar", "routeEdit", new { identificador = route.id },
+                                      new { @class = "btn btn alert-info", @onclick = "return confirm('¿Quiere modificar esta ruta ? ');" })
+                        </td>
+                        <td>
+                            @Html.ActionLink("Borrar", "routeDelete", new { identificador = route.id },
+                                  new { @class = "btn btn alert-info", @onclick = "return confirm('¿Quiere borrar esta ruta? ');" })
+=======
+                        <td class="text-center" scope="row"> @route.id </td>
+                        <td class="text-center" scope="row"> @route.start </td>
+                        <td class="text-center" scope="row"> @route.finish </td>
+                        <td class="text-center" scope="row"> @route.distance </td>
+
+
+                        <td>
+                            @Html.ActionLink("Modificar", "routeEdit", new { identificador = route.id },
+                                      new { @class = "btnLogin alert-info", @onclick = "return confirm('¿Quiere modificar esta ruta ? ');" })
+                        </td>
+                        <td>
+                            @Html.ActionLink("Borrar", "routeDelete", new { identificador = route.id },
+                                  new { @class = "btnLogin alert-info", @onclick = "return confirm('¿Quiere borrar esta ruta? ');" })
+>>>>>>> Cesar
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+<<<<<<< HEAD
+    </div>
+=======
+
+
+
+    </div>
+
+>>>>>>> Cesar
+</body>
+</html>

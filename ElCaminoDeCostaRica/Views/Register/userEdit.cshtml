@@ -1,0 +1,176 @@
+﻿@model ElCaminoDeCostaRica.Models.User
+@{ List<SelectListItem> usertype = new List<SelectListItem>() { new
+SelectListItem { Text = "Administrador", Value= "1"}, new SelectListItem { Text = "Caminante", Value="0"} };
+
+    List<SelectListItem> disabilityOptions = new List<SelectListItem>() { new
+        SelectListItem {Text = "No", Value="No"}, new SelectListItem {Text = "Sí", Value="Sí"} };
+}
+
+<html>
+<head>
+    <script src="~/Scripts/Forms.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+    <script>
+        function addDisability() {
+            var disabilitySelector = document.getElementById("disabilitySelector");
+            var disabilityValue = disabilitySelector.value;
+            var disabilityBox = document.getElementById("disabilityBox");
+            var disabilityLabel = document.getElementById("disabilityLabel");
+            if (disabilityValue == "Sí") {
+                disabilityBox.type = "text";
+                disabilityLabel.style.visibility = "visible";
+                disabilityBox.value = "";
+            } else {
+                disabilityBox.type = "hidden";
+                disabilityBox.value = "No";
+                disabilityLabel.style.visibility = "hidden";
+            }
+        }
+
+        function createDiseaseOption() {
+            var label = document.getElementById("diseasesLabel");
+            if (label != null) {
+                label.style.visibility = "hidden";
+            }
+
+            var container = document.getElementById("test");
+            var diseaseLabel = document.createElement("p");
+            diseaseLabel.innerText = "Enfermedad";
+            var diseaseBox = document.createElement("input");
+            diseaseBox.type = "text";
+            diseaseBox.name = "enfermedad";
+            var treatmentLabel = document.createElement("p");
+            treatmentLabel.innerText = "Tratamiento";
+            var treatmenBox = document.createElement("input");
+            treatmenBox.name = "tratamiento";
+            treatmenBox.type = "text";
+
+            container.appendChild(diseaseLabel);
+            container.appendChild(diseaseBox);
+            container.appendChild(treatmentLabel);
+            container.appendChild(treatmenBox);
+        }
+    </script>
+
+</head>
+<body>
+    <div class="container_Green formTitleCenter">
+        @using (Html.BeginForm("userEdit", "Register", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+
+            @Html.AntiForgeryToken()
+            <h1>Edicion de usuario</h1>
+            <div class="form-horizontal">
+                @Html.HiddenFor(model => model.id)
+                <div class="form-group">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.firstName, new { @class = "formLabel" })
+                        @Html.TextBoxFor(model => model.firstName, new { @class = "formcontrol, formInput" })
+                        @Html.ValidationMessageFor(model => model.firstName, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.lastName, new { @class = "formLabel" })
+                        @Html.TextBoxFor(model => model.lastName, new { @class = "formcontrol, formInput" })
+                        @Html.ValidationMessageFor(model => model.lastName, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.email, new { @class = "formLabel" })
+                        @Html.TextBoxFor(model => model.email, new { @class = "formcontrol, formInput" })
+                        @Html.ValidationMessageFor(model => model.email, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.phone, new { @class = "formLabel" })
+                        @Html.TextBoxFor(model => model.phone, new { @class = "formcontrol, formInput" })
+                        @Html.ValidationMessageFor(model => model.phone, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.userType, new { @class = "formLabel" })
+                        @Html.DropDownListFor(model => model.userType, usertype, "-Sin selección - ", new { @class = "form - control" })
+                        @Html.ValidationMessageFor(model => model.phone, "", new { @class = "text-danger" })
+                    </div>
+
+                    <br />
+                    <h2 style="margin-top: 12px">Historial Medico</h2>
+
+                    <div class="align-content-center">
+                        <p class="">Posee alguna discapacidad o condición que le dificulte caminar?</p>
+                        <div class="form-group">
+                            <select id="disabilitySelector" class="" style="width: 100%" onclick="addDisability()">
+                                @{
+                                    string dis = ViewBag.Disability;
+                                    if (dis != "NO")
+                                    {
+                                        <option value="Sí">Sí</option>
+                                        <option value="No">No</option>
+
+                                    }
+                                    else
+                                    {
+                                        <option value="No">No</option>
+                                        <option value="Sí">Sí</option>
+
+                                    }
+                                    ViewBag.Disability = dis;
+                                }
+                            </select>
+                            @{if (ViewBag.Disability != "NO")
+                                {
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.disability, new { @id = "disabilityLabel", @class = "formLabel", @visability = "visible" })
+                                        @Html.TextBoxFor(model => model.disability, new { @id = "disabilityBox", @name = "disabilityBox", @class = "form-control, formInput", @type = "text" })
+                                        @Html.ValidationMessageFor(model => model.disability, "", new { @class = "text-danger" })
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.disability, new { @id = "disabilityLabel", @class = "formLabel", @visability = "hidden" })
+                                        @Html.TextBoxFor(model => model.disability, new { @id = "disabilityBox", @name = "disabilityBox", @class = "form-control, formInput", @type = "hidden" })
+                                        @Html.ValidationMessageFor(model => model.disability, "", new { @class = "text-danger" })
+                                    </div>
+                                }
+                            }
+                        </div>
+                        <br />
+                    </div>
+
+                    <div id="diseases" class="form-group">
+                        <div id="test">
+                            @{
+                                if (ViewBag.UserDiseases.Count > 0)
+                                {
+                                    foreach (var disease in ViewBag.UserDiseases)
+                                    {
+                                        @Html.Label("Enfermedad", new { @class = "formLabel" })
+                                        @Html.TextBox("enfermedad", disease.name as string, new { @name = "enfermedad", @class = "form-control, formInput" })
+
+                                        @Html.Label("Tratamiento", new { @class = "formLabel" })
+                                        @Html.TextBox("tratamiento", disease.treatment as string, new { @name = "tratamiento", @class = "form-control, formInput" })
+                                    }
+                                }
+                                else
+                                {
+                                    <h3 id="diseasesLabel">No tienen enfermedades registradas!</h3>
+                                }
+                            }
+                        </div>
+                        <br />
+                        <button type="button" onclick="createDiseaseOption()">Agregar Condicion</button>
+                    </div>
+
+                    <br />
+                    <div>
+                        <br />
+                        <input type="submit" class="btn btn-success" value="Aplicar cambios" />
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</body>
+@section Scripts
+{
+    @Scripts.Render("~/bundles/jqueryval")
+}
+</html>

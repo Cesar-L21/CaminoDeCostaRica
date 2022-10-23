@@ -1,0 +1,82 @@
+﻿
+@model ElCaminoDeCostaRica.Models.Picture
+@{ ViewBag.Title = "Fotos"; }
+<html>
+<head>
+</head>
+
+<body class="body_Form">
+
+<<<<<<< HEAD
+    <h1 align="center" style="color:black; font-family:Agrozza Demo">Lista de fotos</h1>
+    <div class="seccion_1" id="s1">
+        <table class="table">
+            <tr>
+                <th class="text-center">ID</th>
+                <th class="text-center">Foto</th>
+                <th class="text-center">Descripcion</th>
+                <th class="text-center">Sitio</th>
+                <th class="text-center">Etapa</th>
+=======
+    <div class="table-responsive m-lg-2">
+        <table class="table">
+            <h1 align="center" style="color: #184D47; font-family: Agrozza Demo">Lista de Fotografías</h1>
+            <tr style="color: #184D47">
+                <th scope="col" class="text-center">Identificación</th>
+                <th scope="col" class="text-center">Nombre</th>
+                <th scope="col" class="text-center">Apellido</th>
+                <th scope="col" class="text-center">Email</th>
+                <th scope="col" class="text-center">Tipo</th>
+                <th scope="col" class="text-center">Teléfono</th>
+>>>>>>> Cesar
+            </tr>
+            <tbody>
+                @foreach (var picture in ViewBag.pictures)
+                {
+                    <tr>
+<<<<<<< HEAD
+                        <td class="text-center"> @picture.id </td>
+                        <td class="text-center"> @picture.picture </td>
+                        <td class="text-center"> @picture.caption </td>
+                        <td class="text-center"> @picture.idSite </td>
+                        <td class="text-center"> @picture.idStage </td>
+
+                        <td>
+                            @Html.ActionLink("Modificar", "", new { },
+                                      new { @class = "btn btn alert-info", @onclick = "return confirm('¿Quiere modificar esta foto ? ');" })
+                        </td>
+                        <td>
+                            @Html.ActionLink("Borrar", "pictureDelete", new { identificador = picture.id },
+                                  new { @class = "btn btn alert-info", @onclick = "return confirm('¿Quiere borrar esta foto? ');" })
+                        </td>
+=======
+
+                        <td scope="row" class="text-center"> @picture.id </td>
+                        <td scope="row" class="text-center"> @picture.picture </td>
+                        <td scope="row" class="text-center"> @picture.caption </td>
+                        <td scope="row" class="text-center"> @picture.idSite </td>
+                        <td scope="row" class="text-center"> @picture.idStage </td>
+
+                        <td>
+                            @Html.ActionLink("Modificar", "", new { },
+                                      new { @class = "btnLogin alert-info", @onclick = "return confirm('¿Quiere modificar esta foto ? ');" })
+                        </td>
+                        <td>
+                            @Html.ActionLink("Borrar", "pictureDelete", new { identificador = picture.id },
+                                  new { @class = "btnLogin alert-info", @onclick = "return confirm('¿Quiere borrar esta foto? ');" })
+                        </td>
+
+>>>>>>> Cesar
+                    </tr>
+                }
+            </tbody>
+        </table>
+<<<<<<< HEAD
+    </div>
+=======
+
+
+
+>>>>>>> Cesar
+</body>
+</html>

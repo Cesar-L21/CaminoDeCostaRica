@@ -1,0 +1,219 @@
+﻿@model ElCaminoDeCostaRica.Models.User
+
+<html>
+<head>
+    <link rel="stylesheet" href="~/Content/bootstrap.css">
+    <script src="~/Scripts/bootstrap.js"></script>
+</head>
+
+<<<<<<< HEAD
+<body class="body_Index">
+
+    <div class="formTitleCenter">
+        <div class="container_Green" style="color:#865a23">
+            @if (ViewBag.Message != null)
+            {
+                if (ViewBag.Success)
+                {
+                    <div class="alert-success">
+                        <h3> @ViewBag.Message </h3>
+                    </div>
+                }
+                else
+                {
+                    <div class="alert-danger">
+                        <h3> @ViewBag.Message </h3>
+                    </div>
+                }
+            }
+
+            @using (Html.BeginForm("Register", "Register", FormMethod.Post, new { enctype = "multipart/form-data" }))
+            {
+                @Html.AntiForgeryToken()
+                <img class="responsive" src="~/images/Logo_El_Camino_de_Costa_Rica.jpg" width="50px" height="50px " />
+                <h1 class="formTitleCenter">Crear cuenta</h1>
+                <div class="align-content-center">
+                    <div class="form-row">
+                        <div class="col">
+                            @Html.LabelFor(model => model.id, new { @class = "formLabel" })
+                            @Html.TextBoxFor(model => model.id, new { @class = "formcontrol, formInput" })
+                            @Html.ValidationMessageFor(model => model.id, "", new { @class = "text-danger" })
+                        </div>
+
+                        <div class="col">
+                            @Html.LabelFor(model => model.firstName, new { @class = "formLabel" })
+                            @Html.TextBoxFor(model => model.firstName, new { @class = "formcontrol, formInput" })
+                            @Html.ValidationMessageFor(model => model.firstName, "", new { @class = "text-danger" })
+                        </div>
+
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.lastName, new { @class = "formLabel" })
+                        @Html.TextBoxFor(model => model.lastName, new { @class = "formcontrol, formInput" })
+                        @Html.ValidationMessageFor(model => model.lastName, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.email, new { @class = "formLabel" })
+                        @Html.TextBoxFor(model => model.email, new { @class = "formcontrol, formInput" })
+                        @Html.ValidationMessageFor(model => model.email, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.phone, new { @class = "formLabel" })
+                        @Html.TextBoxFor(model => model.phone, new { @class = "formcontrol, formInput" })
+                        @Html.ValidationMessageFor(model => model.phone, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.password, new { @class = "formLabel" })
+                        @Html.PasswordFor(model => model.password, new { @class = "formcontrol, formInput" })
+                        @Html.ValidationMessageFor(model => model.password, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.confirmPassword, new { @class = "formLabel" })
+                        @Html.PasswordFor(model => model.confirmPassword, new { @class = "formcontrol, formInput" })
+                        @Html.ValidationMessageFor(model => model.confirmPassword, "", new { @class = "text-danger" })
+                    </div>
+
+                </div>
+                <div>
+                    <input type="submit" class="btn btn-success btnCreate" value="Crear" />
+                </div>
+            }
+        </div>
+    </div>
+</body>
+
+
+=======
+<!-- Based on  https://mdbootstrap.com/docs/standard/extended/registration/ -->
+
+<body class="body_Index">
+    <section class="h-100 "
+             style="background-image: url('https://www.fodors.com/wp-content/uploads/2019/02/01_REPUB_Costa_Rica_Rainy_Season_dreamstime_xl_28703629.jpg'); 
+                 height: 100vh; 
+                 background-position: center; 
+                 background-repeat: no-repeat; 
+                 background-size: cover;" 
+                 class="bg-image";>
+
+        <div class="container py-5 h-100 rounded" style="opacity:0.95 !important">
+            <div class="row d-flex justify-content-center align-items-center h-100">
+                <div class="col">
+                    <div class="card card-registration my-4">
+                        <div class="row g-0">
+                            <div class="col-xl-6 d-none d-xl-block">
+                                <img src="~/images/Logo_El_Camino_de_Costa_Rica.jpg"
+                                     alt="Sample photo" class="img-fluid"
+                                     style="border-top-left-radius: .25rem; border-bottom-left-radius: .25rem;" />
+                            </div>
+                            <div class="col-xl-6">
+                                <div class="card-body p-md-5 text-black">
+
+                                    @if (ViewBag.Message != null)
+                                    {
+                                        if (ViewBag.Success)
+                                        {
+                                            <div class="alert-success">
+                                                <h3> @ViewBag.Message </h3>
+                                            </div>
+                                        }
+                                        else
+                                        {
+                                            <div class="alert-danger">
+                                                <h3> @ViewBag.Message </h3>
+                                            </div>
+                                        }
+                                    }
+
+
+                                    @using (Html.BeginForm("Register", "Register", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                                    {
+                                        @Html.AntiForgeryToken();
+
+                                        <h1 class="mb-5 text-uppercase">Formulario De Registro</h1>
+
+                                        <div class="row">
+                                            <div class="col-md-6 mb-4" style="font-size:29px;">
+                                                <div class="form-outline">
+                                                    <label class="form-label" for="form3Example1m1">Identificación</label>
+                                                    @Html.TextBoxFor(model => model.id, new { @class = "form-control, form-control-lg" })
+                                                    @Html.ValidationMessageFor(model => model.id, "", new { @class = "text-danger" })
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-md-6 mb-4" style="font-size:29px;">
+                                                <div class="form-outline">
+                                                    <label class="form-label" for="form3Example1m">Nombre</label>
+                                                    @Html.TextBoxFor(model => model.firstName, new { @class = "form-control, form-control-lg" })
+                                                    @Html.ValidationMessageFor(model => model.firstName, "", new { @class = "text-danger" })
+
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 mb-4" style="font-size:29px;">
+                                                <div class="form-outline" >
+                                                    <label class="form-label" for="form3Example1n">Apellido</label>
+                                                    @Html.TextBoxFor(model => model.lastName, new { @class = "form-control, form-control-lg" })
+                                                    @Html.ValidationMessageFor(model => model.lastName, "", new { @class = "text-danger" })
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-md-6 mb-4" style="font-size:29px;">
+                                                <div class="form-outline">
+                                                    <label class="form-label" for="form3Example1m1">Email</label>
+                                                    @Html.TextBoxFor(model => model.email, new { @class = "form-control, form-control-lg" })
+                                                    @Html.ValidationMessageFor(model => model.email, "", new { @class = "text-danger" })
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 mb-4" style="font-size:29px;">
+                                                <div class="form-outline">
+                                                    <label class="form-label" for="form3Example1m1">Teléfono</label>
+                                                    @Html.TextBoxFor(model => model.phone, new { @class = "form-control, form-control-lg" })
+                                                    @Html.ValidationMessageFor(model => model.phone, "", new { @class = "text-danger" })
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-md-6 mb-4">
+                                                <div class="form-outline" style="font-size:29px;">
+                                                    <label class="form-label" for="Contraseña">Contraseña</label>
+                                                    @Html.PasswordFor(model => model.password, new { @class = "form-control, form-control-lg" })
+                                                    @Html.ValidationMessageFor(model => model.password, "", new { @class = "text-danger" })
+
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 mb-4" style="font-size:29px; margin:1px;">
+                                                <div class="form-outline">
+
+                                                    <label class="form-label" for="confirmPassword">Confirmar Contraseña</label>
+                                                    @Html.PasswordFor(model => model.confirmPassword, new { @class = "form-control, form-control-lg" })
+                                                    @Html.ValidationMessageFor(model => model.confirmPassword, "", new { @class = "text-danger" })
+                                                </div>
+                                            </div>
+                                            <div class="d-flex pt-3 formTitleCenter" >
+                                                <input type="submit" class="btn btn-success btnCreate align-content-center opacity-100"
+                                                       value="Registrarse"  style=" margin: 10px; background-color: #FAD586; color:black; font-size:xx-large"/>
+                                            </div>
+
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    </body>
+>>>>>>> Cesar
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+</html>

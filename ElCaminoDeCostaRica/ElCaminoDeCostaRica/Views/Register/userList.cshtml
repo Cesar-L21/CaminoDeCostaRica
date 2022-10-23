@@ -1,0 +1,115 @@
+﻿@model ElCaminoDeCostaRica.Models.User
+@{ ViewBag.Title = "Usuarios"; }
+<html>
+<head>
+</head>
+
+<body>
+<<<<<<< HEAD
+    <div class="container_Green">
+        <h1 align="center" style="color:black; font-family:Agrozza Demo">Lista de usuarios</h1>
+        <div class="seccion_1" id="s1">
+            <table class="table">
+                <tr>
+                    <th class="text-center">Identificación</th>
+                    <th class="text-center">Nombre</th>
+                    <th class="text-center">Apellido</th>
+                    <th class="text-center">Email</th>
+                    <th class="text-center">Tipo</th>
+                    <th class="text-center">Teléfono</th>
+                </tr>
+                <tbody>
+                    @foreach (var user in ViewBag.Users)
+                    {
+                        <tr>
+                            <td class="text-center"> @user.id </td>
+                            <td class="text-center"> @user.firstName </td>
+                            <td class="text-center"> @user.lastName </td>
+                            <td class="text-center"> @user.email </td>
+                            @{
+                                if (user.userType == 0)
+                                {
+                                    <td class="text-center"> Caminante </td>
+                                }
+                                else
+                                {
+                                    <td class="text-center"> Administrador </td>
+                                }
+                            }
+                            <td class="text-center"> @user.phone </td>
+
+                            <td>
+                                @Html.ActionLink("Modificar", "userEdit", new { identificador = user.id },
+                                          new { @class = "btn btn alert-info", @onclick = "return confirm('¿Quiere modificar este usuario ? ');" })
+                            </td>
+                            <td>
+                                @Html.ActionLink("Borrar", "userDelete", new { identificador = user.id },
+                                      new { @class = "btn btn alert-info", @onclick = "return confirm('¿Quiere borrar este usuario? ');" })
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+=======
+
+    <div class="table-responsive m-lg-2">        
+        <table class="table">
+            <h1 align="center" style="color: #184D47; font-family: Agrozza Demo">Lista de usuarios</h1>
+            <tr style="color: #184D47" >
+                <th scope="col" class="text-center">Identificación</th>
+                <th scope="col" class="text-center">Nombre</th>
+                <th scope="col" class="text-center">Apellido</th>
+                <th scope="col" class="text-center">Email</th>
+                <th scope="col" class="text-center">Tipo</th>
+                <th scope="col" class="text-center">Teléfono</th>
+            </tr>
+            <tbody>
+                @foreach (var user in ViewBag.Users)
+                {
+                    <tr>
+                        <td scope="row" class="text-center"> @user.id </td>
+                        <td scope="row" class="text-center"> @user.firstName </td>
+                        <td scope="row" class="text-center"> @user.lastName </td>
+                        <td scope="row" class="text-center"> @user.email </td>
+                        @{
+                            if (user.userType == 0)
+                            {
+                                <td class="text-center"> Caminante </td>
+                            }
+                            else
+                            {
+                                <td class="text-center"> Administrador </td>
+                            }
+                        }
+                        <td scope="row" class="text-center"> @user.phone </td>
+
+                        <td scope="row" class="text-center">
+
+                            @Html.ActionLink("Modificar", "userEdit", new { identificador = user.id },
+                                      new { @class = " btnLogin alert-info", @onclick = "return confirm('¿Quiere modificar este usuario ? ');" })
+                        </td>
+                        <td scope="row" class="text-center">
+                            @Html.ActionLink("Borrar", "userDelete", new { identificador = user.id },
+                                  new { @class = " btnLogin alert-info", @onclick = "return confirm('¿Quiere borrar este usuario? ');" })
+                        </td>
+
+                        <div id="mod_User" class="modal-dialog modal-dialog-centered">
+
+                        </div>
+
+
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+
+
+    </div>
+
+
+>>>>>>> Cesar
+</body>
+</html>

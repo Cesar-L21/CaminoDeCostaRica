@@ -1,0 +1,153 @@
+﻿@model ElCaminoDeCostaRica.Models.Supplier
+
+<html>
+<head>
+
+</head>
+<body>
+    <div class="formTitleCenter">
+        <div id="map"></div>
+        <style>
+            #map {
+                height: 400px;
+                width: 100%;
+            }
+        </style>
+
+        <label for="place">Busque un lugar cercano a su ubicación</label>
+        <h3>Haga click para obtener las coordenadas exactas de un lugar especifico.</h3>
+        <input type="text" id="placeInput" name="place"><br>
+        <button style="margin: 10px; background-color: #FAD586; color: black;" id="searchBtn">Buscar</button>
+
+        @using (Html.BeginForm("addSupplier", "Supplier", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.name, new { @class = "formLabel" })
+                @Html.TextBoxFor(model => model.name, new { @class = "form-control, formInput" })
+                @Html.ValidationMessageFor(model => model.name, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.longitude, new { @class = "formLabel" })
+                @Html.TextBoxFor(model => model.longitude, new { @class = "formcontrol, formInput" })
+                @Html.ValidationMessageFor(model => model.longitude, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.latitude, new { @class = "formLabel" })
+                @Html.TextBoxFor(model => model.latitude, new { @class = "formcontrol, formInput" })
+                @Html.ValidationMessageFor(model => model.latitude, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.email, new { @class = "formLabel" })
+                @Html.TextBoxFor(model => model.email, new { @class = "formcontrol, formInput" })
+                @Html.ValidationMessageFor(model => model.email, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.phone, new { @class = "formLabel" })
+                @Html.TextBoxFor(model => model.phone, new { @class = "formcontrol, formInput" })
+                @Html.ValidationMessageFor(model => model.phone, "", new { @class = "text-danger" })
+            </div>
+            @*    <section class="min-vh-100 " style=" font-size:x-large;">
+                <div class="container py-5 h-100">
+                    <div class="row d-flex justify-content-center align-items-center h-100">
+                        <div class="col col-xl-10">
+                            <div class="card" style="border-radius: 4rem; border-style: solid; border-color: #FAD586;">
+                                <div class="row g-0 mb-7">
+
+                                    <div class="col-md-6 col-lg-5 d-none d-md-block" ;>
+                                        <img src="https://cdn-icons.flaticon.com/png/512/3620/premium/3620688.png?token=exp=1657003588~hmac=3c5f851a4d18e50e71e1f851f1f02f6f"
+                                             alt="login form" class="img-fluid" style="border-radius: 1rem 0 0 1rem; margin: 8px 14px" />
+                                    </div>
+
+                                    <div class="col-md-6 col-lg-7 d-flex align-items-center" style="font-size:x-large">
+                                        <div class="card-body p-4 p-lg-5 text-black">
+                                            @Html.HiddenFor(model => model.id)
+
+                                            <form>
+
+                                                <h1 class="fw-normal mb-3 pb-3" style="letter-spacing: 1px; color: #184D47">Añadir Proveedor</h1>
+
+                                                <div class="form-outline mb-4">
+                                                    @Html.LabelFor(model => model.name, new { @class = "formLabel" })
+                                                    @Html.TextBoxFor(model => model.name, new { @class = "form-control, form-Input-control" })
+                                                    @Html.ValidationMessageFor(model => model.name, "", new { @class = "text-danger" })
+                                                </div>
+
+                                                <div class="form-outline mb-4">
+                                                    @Html.LabelFor(model => model.longitude, new { @class = "formLabel" })
+                                                    @Html.TextBoxFor(model => model.longitude, new { @class = "form-control, form-Input-control" })
+                                                    @Html.ValidationMessageFor(model => model.longitude, "", new { @class = "text-danger" })
+                                                </div>
+
+                                                <div class="form-outline mb-4">
+                                                    @Html.LabelFor(model => model.latitude, new { @class = "formLabel" })
+                                                    @Html.TextBoxFor(model => model.latitude, new { @class = "form-control, form-Input-control" })
+                                                    @Html.ValidationMessageFor(model => model.latitude, "", new { @class = "text-danger" })
+                                                </div>
+
+                                                <div class="form-outline mb-4">
+                                                    @Html.LabelFor(model => model.email, new { @class = "formLabel" })
+                                                    @Html.TextBoxFor(model => model.email, new { @class = "form-control, form-Input-control" })
+                                                    @Html.ValidationMessageFor(model => model.email, "", new { @class = "text-danger" })
+                                                </div>
+
+                                                <div class="form-outline mb-4">
+                                                    @Html.LabelFor(model => model.phone, new { @class = "formLabel" })
+                                                    @Html.TextBoxFor(model => model.phone, new { @class = "form-control, form-Input-control" })
+                                                    @Html.ValidationMessageFor(model => model.phone, "", new { @class = "text-danger" })
+                                                </div>
+
+
+                                                <div class="pt-1 mb-4">
+                                                    <a href="~/Views/Home/Index.cshtml">
+                                                        <input type="submit" class="rounded-3 btnLogin"
+                                                               style=" margin: 10px; background-color: #FAD586; color:black; "
+                                                               value="Guardar Cambios" />
+                                                    </a>
+                                                </div>
+
+
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>*@
+            <div class="pt-1 mb-4">
+                <a href="~/Views/Home/Index.cshtml">
+                    <input type="submit" class="rounded-3 btnLogin"
+                           style=" margin: 10px; background-color: #FAD586; color:black; "
+                           value="Guardar Cambios" />
+                </a>
+            </div>
+
+            if (ViewBag.Message != null)
+            {
+                if (ViewBag.Success)
+                {
+                    <div class="alert-success">
+                        <h3> @ViewBag.Message </h3>
+                    </div>
+                }
+                else
+                {
+                    <div class="alert-danger">
+                        <h3> @ViewBag.Message </h3>
+                    </div>
+                }
+            }
+        }
+    </div>
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDCTYqs_Jmm73H0IRieidmcvFFvFY0DMXM&region=CR&language=es&callback=initMap&libraries=places&v=weekly"
+                defer>
+        </script>
+</body>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/myjs")
+}
+</html>

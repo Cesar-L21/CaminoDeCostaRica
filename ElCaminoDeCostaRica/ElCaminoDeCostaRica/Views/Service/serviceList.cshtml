@@ -1,0 +1,127 @@
+﻿@model ElCaminoDeCostaRica.Models.Service
+@{ ViewBag.Title = "Servicio"; }
+<html>
+<head>
+</head>
+
+<<<<<<< HEAD
+<body class="body_Login">
+    <div class="container_Green">
+        <h1 align="center" style="color:black; font-family:Agrozza Demo">Lista de servicios</h1>
+        <div class="seccion_1" id="s1">
+            <table class="table">
+                <tr>
+                    <th class="text-center">Id</th>
+                    <th class="text-center">Nombre</th>
+                    <th class="text-center">Descripcion</th>
+                    <th class="text-center">Categoria</th>
+                    <th class="text-center">Proveedor</th>
+                    <th class="text-center">Etapa</th>
+                </tr>
+                <tbody>
+                    @foreach (var service in ViewBag.services)
+                    {
+                        <tr>
+                            <td class="text-center"> @service.id </td>
+                            <td class="text-center"> @service.name </td>
+                            <td class="text-center"> @service.description </td>
+                            @{foreach (var category in ViewBag.cat)
+                                {
+                                    if (category.id == service.idCategory)
+                                    {
+                                        <td class="text-center"> @category.name </td>
+                                        break;
+                                    }
+                                }
+
+                            }
+                            @foreach (var supplier in ViewBag.sup)
+                            {
+                                if (supplier.id == service.idSupplier)
+                                {
+                                    <td class="text-center"> @supplier.name </td>
+=======
+<body>
+
+
+    <div class="table-responsive m-lg-2">
+        <h1 align="center" style="color: #184D47; font-family: Agrozza Demo">Lista de Servicios</h1>
+        <table class="table">
+            <tr style="color: #184D47">
+                <th scope="row" class="text-center">Id</th>
+                <th scope="row" class="text-center">Nombre</th>
+                <th scope="row" class="text-center">Descripcion</th>
+                <th scope="row" class="text-center">Categoria</th>
+                <th scope="row" class="text-center">Proveedor</th>
+                <th scope="row" class="text-center">Etapa</th>
+            </tr>
+            <tbody>
+                @foreach (var service in ViewBag.services)
+                {
+                    <tr>
+                        <td scope="row" class="text-center"> @service.id </td>
+                        <td scope="row" class="text-center"> @service.name </td>
+                        <td scope="row" class="text-center"> @service.description </td>
+
+
+                        @{foreach (var category in ViewBag.cat)
+                            {
+                                if (category.id == service.idCategory)
+                                {
+                                    <td scope="row" class="text-center"> @category.name </td>
+>>>>>>> Cesar
+                                    break;
+                                }
+                            }
+
+<<<<<<< HEAD
+                            <td class="text-center"> @service.idStage </td>
+
+                            <td>
+                                @Html.ActionLink("Modificar", "serviceEdit", new { identificador = service.id },
+                                          new { @class = "btn btn alert-info", @onclick = "return confirm('¿Quiere modificar este servicio ? ');" })
+                            </td>
+                            <td>
+                                @Html.ActionLink("Borrar", "serviceDelete", new { identificador = service.id },
+                                      new { @class = "btn btn alert-info", @onclick = "return confirm('¿Quiere borrar este servicio? ');" })
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+=======
+                        }
+                        @foreach (var supplier in ViewBag.sup)
+                        {
+                            if (supplier.id == service.idSupplier)
+                            {
+                                <td scope="row" class="text-center"> @supplier.name </td>
+                                break;
+                            }
+                        }
+
+                        <td scope="row" class="text-center"> @service.idStage </td>
+
+                        <td scope="row">
+                            @Html.ActionLink("Modificar", "serviceEdit", new { identificador = service.id },
+                                      new { @class = "btnLogin alert-info", @onclick = "return confirm('¿Quiere modificar este servicio ? ');" })
+                        </td>
+                        <td scope="row">
+                            @Html.ActionLink("Borrar", "serviceDelete", new { identificador = service.id },
+                                  new { @class = "btnLogin alert-info", @onclick = "return confirm('¿Quiere borrar este servicio? ');" })
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+
+
+    </div>
+
+   
+>>>>>>> Cesar
+</body>
+</html>

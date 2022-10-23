@@ -1,0 +1,49 @@
+﻿@model ElCaminoDeCostaRica.Models.Survey
+@{ ViewBag.Title = "EncuestaPregunta";
+    List<SelectListItem> rating = new List<SelectListItem>() { new
+SelectListItem { Text = "1", Value= "1"},new SelectListItem { Text = "2", Value= "2"}, new SelectListItem { Text = "3", Value= "3"},
+new SelectListItem { Text = "4", Value= "4"},new SelectListItem { Text = "5", Value= "5"},};
+}
+<html>
+<head>
+</head>
+
+<body>
+
+    @using (Html.BeginForm("Questions", "Survey", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        @Html.HiddenFor(model => model.id)
+        @Html.HiddenFor(model => model.idService)
+        @Html.HiddenFor(model => model.idCategory)
+        <h1 align="center" style="color:black; font-family:Agrozza Demo">Encuesta</h1>
+        <h2 align="center" style="color:black; font-family:Agrozza Demo">Califique las siguientes preguntas de la encuesta en una esacala del 1 al 5, en la que 1 es malo y 5 es excelente</h2>
+        
+        <div class="seccion_1" id="s1">
+
+            @{ var count = 0;
+                foreach (var question in ViewBag.questions)
+                {
+                    if (question.idSurvey == ViewBag.surveys.id)
+                    {
+                        <div class="text-center"> @question.question </div>
+                        <div class="text-center">@Html.DropDownList("Calificacion" + count, rating, "-Sin selección - ", new { @class = "form - control" })</div>
+
+                    }
+                    count = +1;
+
+                }
+
+            }
+            <div class="text-center" ;style="color:black">
+                @Html.Label("Comentarios")
+                @Html.TextBox("Comentarios")
+            </div>
+            <div class="text-center">
+                <input type="submit" id="crear" class="btn btn-success btnCreate" value="Crear" />
+            </div>
+
+        </div>
+    }
+</body>
+</html>
+

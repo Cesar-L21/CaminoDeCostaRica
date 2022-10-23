@@ -1,0 +1,67 @@
+﻿@model ElCaminoDeCostaRica.Models.Inscription
+@{ ViewBag.Title = "Inscripcion"; }
+<html>
+<head>
+</head>
+
+<<<<<<< HEAD
+<body class="body_Index">
+
+    <h1 align="center" style="color:black; font-family:Agrozza Demo">Lista de inscripciones</h1>
+    <div class="seccion_1" id="s1">
+        <table class="table">
+            <tr>
+                <th class="text-center">Usuario</th>
+                <th class="text-center">Etapa</th>
+                <th class="text-center">Fecha</th>
+                <th class="text-center">Codigo</th>
+
+=======
+<body>
+
+
+    <div class="table-responsive m-lg-2">
+        <table class="table">
+            <h1 align="center" style="color: #184D47; font-family: Agrozza Demo">Lista de Inscripciones</h1>
+            <tr style="color: #184D47">
+                <th scope="col" class="text-center">Usuario</th>
+                <th scope="col" class="text-center">Etapa</th>
+                <th scope="col" class="text-center">Fecha</th>
+                <th scope="col" class="text-center">Código</th>
+>>>>>>> Cesar
+            </tr>
+            <tbody>
+                @foreach (var inscription in ViewBag.inscriptions)
+                {
+                    <tr>
+<<<<<<< HEAD
+                        <td class="text-center"> @inscription.idUser </td>
+                        <td class="text-center"> @inscription.idStage </td>
+                        <td class="text-center"> @inscription.date</td>
+                        <td class="text-center"> @inscription.code </td>
+
+                        <td>
+                            @Html.ActionLink("Desinscribirse", "desinscription", new { identificador = inscription.idUser },
+                                  new { @class = "btn btn alert-info", @onclick = "return confirm('¿Quiere desinscribirse? ');" })
+=======
+                        <td class="text-center" scope="row"> @inscription.idUser </td>
+                        <td class="text-center" scope="row"> @inscription.idStage </td>
+                        <td class="text-center" scope="row"> @inscription.date</td>
+                        <td class="text-center" scope="row"> @inscription.code </td>
+
+                        <td scope="row" class="text-center">
+                            @Html.ActionLink("Desinscribirse", "desinscription", new { identificador = inscription.idUser },
+                                      new { @class = "btnLogin alert-info", @onclick = "return confirm('¿Quiere desinscribirse? ');" })
+>>>>>>> Cesar
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+<<<<<<< HEAD
+    </div>
+=======
+
+>>>>>>> Cesar
+</body>
+</html>

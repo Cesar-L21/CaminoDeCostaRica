@@ -1,0 +1,184 @@
+﻿@model ElCaminoDeCostaRica.Models.User
+@{ ViewBag.Title = "Iniciar sesion"; }
+
+<html>
+<head>
+    <meta charset="utf-8" />
+    @Styles.Render("~/Content/css")
+    @Styles.Render("~/Content/Styles.css")
+    @Scripts.Render("~/Script/modernizr")
+    <title>El Camino de Costa Rica</title>
+    <link rel="icon" type="image/x-icon" href=favicon.ico />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+</head>
+
+<<<<<<< HEAD
+<body class="body_Login">
+    <div class="formTitleCenter">
+        @if (ViewBag.Success != null)
+        {
+            <div class="alert-success">
+                <h3>@ViewBag.Message</h3>
+            </div>
+        }
+
+
+        @{ string User_name = string.Empty;
+            string User_password = string.Empty;
+            HttpCookie reqCookies = Request.Cookies["userInfo"];
+            if (reqCookies != null)
+            {
+                User_name = reqCookies["email"].ToString();
+                User_password = reqCookies["password"].ToString();
+            }
+            else
+            {
+                using (Html.BeginForm("Login", "Login", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+
+
+                    @Html.AntiForgeryToken()
+                    <h1>Iniciar Sesión</h1>
+                    @Html.HiddenFor(model => model.id)
+                    <div class="container_Green">
+                        <div>
+                            @Html.LabelFor(model => model.email, new { @class = "formLabel" })
+                            @Html.TextBoxFor(model => model.email, new { @class = "formTitleCenter" })
+                            @Html.ValidationMessageFor(model => model.email, "", new { @class = "text-danger" })
+                        </div>
+                        <div>
+                            @Html.LabelFor(model => model.password, new { @class = "formLabel" })
+                            @Html.PasswordFor(model => model.password, new { @class = "formTitleCenter" })
+                            @Html.ValidationMessageFor(model => model.password, "", new { @class = "text-danger" })
+                        </div>
+
+                        <a href="~/Views/Home/Index.cshtml">
+                            <input type="submit" class="btnLogin" value="Iniciar Sesion" />
+                        </a>
+
+
+                    </div>
+
+
+                }
+            }
+        }
+        @if (ViewBag.Message != null && ViewBag.LoginSuccess != null)
+        {
+            if (ViewBag.LoginSuccess)
+            {
+                <div class="alert-success">
+                    <h3>@ViewBag.Message</h3>
+                </div>
+            }
+            else
+            {
+                <div class="alert-danger">
+                    <h3>@ViewBag.Message</h3>
+                </div>
+            }
+        }
+
+
+    </div>
+
+=======
+<body class="body_Index">
+
+    <!--Based on  https://mdbootstrap.com/docs/standard/extended/login/? -->
+
+
+    @if (ViewBag.Success != null)
+    {
+        <div class="alert-success">
+            <h3>@ViewBag.Message</h3>
+        </div>
+    }
+
+    @{ string User_name = string.Empty;
+        string User_password = string.Empty;
+        HttpCookie reqCookies = Request.Cookies["userInfo"];
+        if (reqCookies != null)
+        {
+            User_name = reqCookies["email"].ToString();
+            User_password = reqCookies["password"].ToString();
+        }
+        else
+        {
+            using (Html.BeginForm("Login", "Login", FormMethod.Post, new { enctype = "multipart/form-data" }))
+            {
+
+                <section class="min-vh-100 " style=" font-size:x-large;">
+                    <div class="container py-5 h-100">
+                        <div class="row d-flex justify-content-center align-items-center h-100">
+                            <div class="col col-xl-10">
+                                <div class="card" style="border-radius: 2rem; border-style: solid; border-color: #FAD586;">
+                                    <div class="row g-0 mb-7">
+
+                                        <div class="col-md-6 col-lg-5 d-none d-md-block" ;>
+                                            <img src="~/images/Logo_El_Camino_de_Costa_Rica.jpg"
+                                                 alt="login form" class="img-fluid" style="border-radius: 1rem 0 0 1rem;" />
+                                        </div>
+
+                                        <div class="col-md-6 col-lg-7 d-flex align-items-center" style="font-size:x-large">
+                                            <div class="card-body p-4 p-lg-5 text-black">
+
+
+                                                <form>
+                                                    @Html.AntiForgeryToken()
+
+                                                    <h1 class="fw-normal mb-3 pb-3" style="letter-spacing: 1px;">Inicio de Sesión</h1>
+
+                                                    @Html.HiddenFor(model => model.id)
+                                                    <div class="form-outline mb-4">
+                                                        <label class="form-label" for="form2Example17">Correo Eléctronico</label>
+                                                        @Html.TextBoxFor(model => model.email, new { @class = "form-control form-control-lg" })
+                                                        @Html.ValidationMessageFor(model => model.email, "", new { @class = "text-danger" })
+                                                    </div>
+
+                                                    <div class="form-outline mb-4">
+                                                        <label class="form-label" for="form2Example27">Contraseña</label>
+                                                        @Html.PasswordFor(model => model.password, new { @class = "form-control form-control-lg" })
+                                                        @Html.ValidationMessageFor(model => model.password, "", new { @class = "text-danger" })
+
+                                                    </div>
+
+                                                    <div class="pt-1 mb-4">
+                                                        <a href="~/Views/Home/Index.cshtml">
+                                                            <input type="submit" class="rounded-3 btnLogin"
+                                                                   style=" margin: 10px; background-color: #FAD586; color:black; "
+                                                                   value="Iniciar Sesion" />
+                                                        </a>
+
+                                                    </div>
+
+                                                    <a class="small text-muted" href="#!">Forgot password?</a>
+                                                    <p class="mb-5 pb-lg-2" style="color: #393f81;">
+                                                        ¿No está registrado? <a href="/Register/Register"
+                                                                                style="color: #96BB7C;">Registrese aquí</a>
+                                                    </p>
+
+                                                </form>
+
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+            }
+        }
+    }
+>>>>>>> Cesar
+
+</body>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+</html>

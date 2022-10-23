@@ -1,0 +1,72 @@
+﻿@model ElCaminoDeCostaRica.Models.User
+
+<html>
+<head>
+    <link rel="stylesheet" href="~/Content/bootstrap.css">
+    <script src="~/Scripts/bootstrap.js"></script>
+    <script src="~/Scripts/Forms.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+</head>
+
+<body class="body_Index">
+    <div class="formTitleCenter">
+        @using (Html.BeginForm("userHealth", "Register", FormMethod.Post))
+        {
+            <h1 aling="center">Historial Medico <br></h1>
+            @Html.HiddenFor(model => model.id)
+            @Html.HiddenFor(model => model.firstName)
+            @Html.HiddenFor(model => model.lastName)
+            @Html.HiddenFor(model => model.email)
+            @Html.HiddenFor(model => model.phone)
+            @Html.HiddenFor(model => model.password)
+
+            <div class="align-content-center">
+                <p class="">Posee alguna discapacidad o condición que le dificulte caminar?</p>
+                <select id="disability" class="" onclick="enableDisability()">
+                    <option value="No">No</option>
+                    <option value="Sí">Sí</option>
+                </select>
+
+                @Html.LabelFor(model => model.disability, new { @class = "formLabel" })
+                @Html.TextBoxFor(model => model.disability, new { @id = "disabilityBox", @class = "form-control, formInput", @disabled = "disabled" })
+                @Html.ValidationMessageFor(model => model.disability, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="align-content-center">
+                <input type="checkbox" id="hipertension" value="Hipertension" onclick="enableHipertension()" />
+                <label for="hipertension">Hipertension</label>
+                @Html.Label("Tratamiento", new { @class = "formLabel" })
+                @Html.TextBox("numero1", ViewBag.HiperT as string, new { @id = "hiperBox", @class = "form-control, formInput", @disabled = "disabled" })
+            </div>
+
+            <div class="align-content-center">
+                <input type="checkbox" id="diabetes" value="Diabetes Mellitus" onclick="enableDiabetes()" />
+                <label for="diabetes">Diabetes Mellitus</label>
+                @Html.Label("Tratamiento", new { @class = "formLabel" })
+                @Html.TextBox("numero2", ViewBag.DiabetesT as string, new { @id = "diabetesBox", @class = "form-control, formInput", @disabled = "disabled" })
+            </div>
+
+            <div class="align-content-center">
+                <input type="checkbox" id="cancer" value="Cáncer" onclick="enableCancer()" />
+                <label for="cancer">Cáncer</label>
+                @Html.Label("Tratamiento", new { @class = "formLabel" })
+                @Html.TextBox("numero3", ViewBag.CancerT as string, new { @id = "cancerBox", @class = "form-control, formInput", @disabled = "disabled" })
+            </div>
+
+            <div class="align-content-center">
+                <input type="checkbox" id="otro" value="Otro" onclick="otherEnable()" />
+                <label for="hipertension">Otro</label>
+                @Html.Label("Especifique", new { @class = "formLabel" })
+                @Html.TextBox("numero4", ViewBag.Otro as string, new { @id = "otroEspBox", @class = "form-control, formInput", @disabled = "disabled" })
+                @Html.Label("Tratamiento", new { @class = "formLabel" })
+                @Html.TextBox("numero5", ViewBag.HiperT as string, new { @id = "otroTreatBox", @class = "form-control, formInput", @disabled = "disabled" })
+            </div>
+
+            <div>
+                <input type="submit" class="btn btn-success btnCreate" value="Crear Cuenta" />
+            </div>
+        }
+    </div>
+</body>
+@section Scripts { @Scripts.Render("~/bundles/jqueryval") }
+</html>

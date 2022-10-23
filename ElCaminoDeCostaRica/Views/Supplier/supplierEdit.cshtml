@@ -1,0 +1,54 @@
+﻿@model ElCaminoDeCostaRica.Models.Supplier
+  
+<html>
+<head>
+</head>
+<body>
+    <div class="container_Rose formTitleCenter">
+        @using (Html.BeginForm("supplierEdit", "Supplier", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+
+            @Html.AntiForgeryToken()
+            <h1>Formulario de edicion de proveedor</h1>
+            <div class="form-horizontal">
+                @Html.HiddenFor(model => model.id)
+                <div class="form-group">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.name, new { @class = "formLabel" })
+                        @Html.TextBoxFor(model => model.name, new { @class = "form-control, formInput" })
+                        @Html.ValidationMessageFor(model => model.name, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.longitude, new { @class = "formLabel" })
+                        @Html.TextBoxFor(model => model.longitude, new { @class = "formcontrol, formInput" })
+                        @Html.ValidationMessageFor(model => model.longitude, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.latitude, new { @class = "formLabel" })
+                        @Html.TextBoxFor(model => model.latitude, new { @class = "formcontrol, formInput" })
+                        @Html.ValidationMessageFor(model => model.latitude, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.email, new { @class = "formLabel" })
+                        @Html.TextBoxFor(model => model.email, new { @class = "formcontrol, formInput" })
+                        @Html.ValidationMessageFor(model => model.email, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.phone, new { @class = "formLabel" })
+                        @Html.TextBoxFor(model => model.phone, new { @class = "formcontrol, formInput" })
+                        @Html.ValidationMessageFor(model => model.phone, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div>
+                        <input type="submit" class="btn btn-success" value="Aplicar cambios" />
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</body>
+@section Scripts
+{
+    @Scripts.Render("~/bundles/jqueryval")
+}
+</html>

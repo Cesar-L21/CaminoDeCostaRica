@@ -1,0 +1,111 @@
+﻿@model ElCaminoDeCostaRica.Models.Survey
+@{ ViewBag.Title = "Encuesta"; }
+<html>
+<head>
+</head>
+
+<body>
+
+    <h1 align="center" style="color:black; font-family:Agrozza Demo">Lista de encuestas</h1>
+<<<<<<< HEAD
+=======
+    
+>>>>>>> Cesar
+    <div class="seccion_1" id="s1">
+        <table class="table">
+            <tr>
+                <th class="text-center">Id</th>
+                <th class="text-center">Version</th>
+<<<<<<< HEAD
+                <th class="text-center">Dia</th>
+=======
+>>>>>>> Cesar
+                <th class="text-center">Categoria</th>
+                <th class="text-center">Servicio</th>
+            </tr>
+            <tbody>
+<<<<<<< HEAD
+                @foreach (var survey in ViewBag.surveys)
+                {
+                <tr>
+                    <td class="text-center"> @survey.id </td>
+                    <td class="text-center"> @survey.version </td>
+                    <td class="text-center"> @survey.day </td>
+                    @foreach (var category in ViewBag.cat)
+                    {
+                        if (category.id == survey.idCategory)
+                        {
+                            <td class="text-center"> @category.name </td>
+                            break;
+                        }
+                    }
+                    @foreach (var service in ViewBag.ser)
+                    {
+                        if (service.id == survey.idService)
+                        {
+                            <td class="text-center"> @service.name </td>
+                            break;
+                        }
+                    }
+
+                    <td>
+                        @Html.ActionLink("Modificar", "surveyEdit", new { identificador = survey.id },
+                                  new { @class = "btn btn alert-info", @onclick = "return confirm('¿Quiere modificar esta encuesta ? ');" })
+                    </td>
+                    <td>
+                        @Html.ActionLink("Borrar", "surveyDelete", new { identificador = survey.id },
+                              new { @class = "btn btn alert-info", @onclick = "return confirm('¿Quiere borrar esta encuesta? ');" })
+                    </td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+=======
+                @Html.HiddenFor(model => model.id)
+                @Html.HiddenFor(model => model.idService)
+                @Html.HiddenFor(model => model.idCategory)
+                @foreach (var survey in ViewBag.surveys)
+                {
+                    <tr>
+                        <td class="text-center"> @survey.id </td>
+                        <td class="text-center"> @survey.version </td>
+                        @foreach (var category in ViewBag.cat)
+                        {
+                            if (category.id == survey.idCategory)
+                            {
+                                <td class="text-center"> @category.name </td>
+                                break;
+                            }
+                        }
+                        @foreach (var service in ViewBag.ser)
+                        {
+                            if (service.id == survey.idService)
+                            {
+                                <td class="text-center"> @service.name </td>
+                                break;
+                            }
+                        }
+
+                        <td>
+                            @Html.ActionLink("Modificar", "surveyEdit", new { identificador = survey.id },
+                                      new { @class = "btn btn alert-info", @onclick = "return confirm('¿Quiere modificar esta encuesta ? ');" })
+                        </td>
+                        <td>
+                            @Html.ActionLink("Borrar", "surveyDelete", new { identificador = survey.id },
+                                  new { @class = "btn btn alert-info", @onclick = "return confirm('¿Quiere borrar esta encuesta? ');" })
+                        </td>
+                        <td>
+                            @Html.ActionLink("Mostrar", "Questions", new { identificador = survey.id },
+                                  new { @class = "btn btn alert-info", @onclick = "return confirm('¿Quiere mostras las preguntas? '};" })
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+    </div>
+
+>>>>>>> Cesar
+</body>
+</html>

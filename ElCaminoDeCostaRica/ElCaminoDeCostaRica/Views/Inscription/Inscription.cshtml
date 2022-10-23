@@ -1,0 +1,85 @@
+﻿@model ElCaminoDeCostaRica.Models.Inscription
+@{
+    List<SelectListItem> users = new List<SelectListItem>();
+    List<SelectListItem> stages = new List<SelectListItem>();
+    foreach (var user in ViewBag.Users)
+    {
+        users.Add(
+        new SelectListItem { Text = Convert.ToString(user.email), Value = Convert.ToString(user.id) }
+        );
+    }
+
+    foreach (var stage in ViewBag.Stages)
+    {
+        stages.Add(
+<<<<<<< HEAD
+        new SelectListItem { Text = Convert.ToString(stage.id), Value = Convert.ToString(stage.id) }
+=======
+        new SelectListItem { Text = Convert.ToString(stage.start + "-" + stage.finish), Value = Convert.ToString(stage.id) }
+>>>>>>> Cesar
+        );
+    }
+}
+<html>
+<head>
+</head>
+<body class="body_Index">
+    @if (ViewBag.Message != null)
+    {
+        if (ViewBag.Success)
+        {
+            <div class="alert-success">
+                <h3> @ViewBag.Message </h3>
+            </div>
+        }
+        else
+        {
+            <div class="alert-danger">
+                <h3> @ViewBag.Message </h3>
+            </div>
+        }
+    }
+
+    @using (Html.BeginForm("Inscription", "Inscription", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        @Html.AntiForgeryToken()
+        <h1 class="formTitle">Formulario de inscripcion</h1>
+        <div class="form-horizontal">
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.idUser, new { @class = "formLabel" })
+                @Html.DropDownListFor(model => model.idUser, users, "-Sin selección - ", new { @class = "form - control" })
+                @Html.ValidationMessageFor(model => model.idUser, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.idStage, new { @class = "formLabel" })
+                @Html.DropDownListFor(model => model.idStage, stages, "-Sin selección - ", new { @class = "form - control" })
+                @Html.ValidationMessageFor(model => model.idStage, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+<<<<<<< HEAD
+                @Html.LabelFor(model => model.date, new { @class = "formLabel" })
+                @Html.TextBoxFor(model => model.date, new { @class = "formcontrol, formInput" })
+=======
+                @Html.LabelFor(model => model.date)
+                @Html.TextBoxFor(model => model.date, new { @type = "date"})
+>>>>>>> Cesar
+                @Html.ValidationMessageFor(model => model.date, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.code, new { @class = "formLabel" })
+                @Html.TextBoxFor(model => model.code, new { @class = "formcontrol, formInput" })
+                @Html.ValidationMessageFor(model => model.code, "", new { @class = "text-danger" })
+            </div>
+
+        </div>
+        <div>
+
+            <input type="submit" class="btn btn-success btnCreate" value="Inscribirse" />
+        </div>
+    }
+</body>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+</html>

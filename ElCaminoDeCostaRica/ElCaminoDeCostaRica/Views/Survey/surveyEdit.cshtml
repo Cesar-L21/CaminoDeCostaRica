@@ -1,0 +1,155 @@
+<<<<<<< HEAD
+﻿@model ElCaminoDeCostaRica.Models.Survey
+=======
+﻿
+@model  Tuple<ElCaminoDeCostaRica.Models.Survey, List<ElCaminoDeCostaRica.Models.Question>>
+>>>>>>> Cesar
+@{
+    List<SelectListItem> categories = new List<SelectListItem>();
+    List<SelectListItem> services = new List<SelectListItem>();
+    foreach (var category in ViewBag.Categories)
+    {
+        categories.Add(
+        new SelectListItem { Text = Convert.ToString(category.name), Value = Convert.ToString(category.id) }
+        );
+    }
+
+    foreach (var service in ViewBag.Services)
+    {
+        services.Add(
+        new SelectListItem { Text = Convert.ToString(service.name), Value = Convert.ToString(service.id) }
+        );
+    }
+}
+
+<html>
+<head>
+</head>
+<body>
+
+    @using (Html.BeginForm("surveyEdit", "Survey", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+<<<<<<< HEAD
+
+        @Html.AntiForgeryToken()
+        <h1>Formulario de edicion de encuesta</h1>
+        <div class="form-horizontal">
+            @Html.HiddenFor(model => model.id)
+            <div class="form-group">
+               <div class="form-style-9" ; style="color:black">
+                @Html.LabelFor(model => model.version)
+                @Html.TextBoxFor(model => model.version, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.version, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="form-style-9" ; style="color:black">
+                @Html.LabelFor(model => model.day)
+                @Html.TextBoxFor(model => model.day, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.day, "", new { @class = "text-danger" })
+
+
+            </div>
+
+            <div class="form-style-9" ; style="color:black">
+                @Html.LabelFor(model => model.idCategory)
+                @Html.DropDownListFor(model => model.idCategory, categories, "-Sin selección - ", new { @class = "form - control" })
+                @Html.ValidationMessageFor(model => model.idCategory, "", new { @class = "text-danger" })
+
+
+            </div>
+
+            <div class="form-style-9" ; style="color:black">
+                @Html.LabelFor(model => model.idService)
+                @Html.DropDownListFor(model => model.idService, services, "-Sin selección - ", new { @class = "form - control" })
+                @Html.ValidationMessageFor(model => model.idService, "", new { @class = "text-danger" })
+            </div>
+
+                <div>
+                    <input type="submit" class="btn btn-success" value="Aplicar cambios" />
+                </div>
+            </div>
+        </div>
+=======
+        @Html.AntiForgeryToken()
+
+
+        <section class="min-vh-100 " style=" font-size:x-large;">
+            <div class="container py-5 h-100">
+                <div class="row d-flex justify-content-center align-items-center h-100">
+                    <div class="col col-xl-10">
+                        <div class="card" style="border-radius: 4rem; border-style: solid; border-color: #FAD586;">
+                            <div class="row g-0 mb-7">
+
+                                <div class="col-md-6 col-lg-5 d-none d-md-block" ;>
+                                    <img src="https://cdn-icons-png.flaticon.com/512/3593/3593663.png"
+                                         alt="login form" class="img-fluid" style="border-radius: 1rem 0 0 1rem; margin: 8px 14px" />
+                                </div>
+
+                                <div class="col-md-6 col-lg-7 d-flex align-items-center" style="font-size:x-large">
+                                    <div class="card-body p-4 p-lg-5 text-black">
+                                  
+
+                                        <form>
+
+                                            <h1 class="fw-normal mb-3 pb-3" style="letter-spacing: 1px; color: #184D47">Añadir Encuesta</h1>
+
+                                            <div class="form-outline mb-4">
+                                                @Html.LabelFor(tuple => tuple.Item1.version)
+                                                @Html.TextBoxFor(tuple => tuple.Item1.version, new { @class = "form-control" })
+                                                @Html.ValidationMessageFor(tuple => tuple.Item1.version, "", new { @class = "text-danger" })
+                                            </div>
+                                            @{ var count = 0;
+
+
+                                                foreach (var question in ViewBag.questions)
+                                                {
+                                                    @Html.HiddenFor(tuple => tuple.Item2[count].id)
+                                                    @Html.HiddenFor(tuple => tuple.Item2[count].idSurvey)
+                                                    @Html.HiddenFor(tuple => tuple.Item2[count].idService)
+                                                    <div class="pt-1 mb-4" ; style="color:black">
+                                                        @Html.LabelFor(tuple => tuple.Item2[count].question)
+                                                        @Html.TextBoxFor(tuple => tuple.Item2[count].question, new { @name = "numero" + count, @class = "form-control" })
+                                                        @Html.ValidationMessageFor(tuple => tuple.Item2[count].question, "", new { @class = "text-danger" })
+                                                    </div>
+                                                    count += 1;
+                                                }
+
+                                            }
+
+                }
+
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+>>>>>>> Cesar
+    }
+</body>
+@section Scripts
+{
+    @Scripts.Render("~/bundles/jqueryval")
+}
+</html>

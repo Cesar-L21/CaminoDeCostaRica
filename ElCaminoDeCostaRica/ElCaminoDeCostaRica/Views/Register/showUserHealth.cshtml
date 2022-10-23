@@ -1,0 +1,60 @@
+﻿@model ElCaminoDeCostaRica.Models.User
+@{ 
+    
+}
+
+
+<html>
+<head>
+
+</head>
+
+<body>
+    <div class="container_Rose">
+        <h1>Historial Medico</h1>
+        <h2>
+            @ViewBag.User.firstName @ViewBag.User.lastName <br /> @ViewBag.User.id
+        </h2>
+        <h3>
+            Discapacidades o condiciones que le dificulten caminar:
+            @if (ViewBag.User.disability == "")
+            {
+                <p>NO</p>
+            }
+            else
+            {
+                @ViewBag.User.disability
+            }
+        </h3>
+
+        @if (ViewBag.UserDiseases.Count > 0)
+        {
+            <table class="table">
+                <tr>
+                    <th class="text-center">Enfermedad</th>
+                    <th class="text-center">Tratamiento</th>
+                </tr>
+                <tbody>
+                    @if (ViewBag.UserDiseases != null)
+                    {
+                        foreach (var disease in ViewBag.UserDiseases)
+                        {
+                            <tr>
+                                <td class="text-center">@disease.name</td>
+                                <td class="text-center">@disease.treatment</td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        }
+        else
+        {
+            <h2 style="text-align:center">NO presenta enfermedades</h2>
+        }
+
+
+    </div>
+</body>
+
+</html>

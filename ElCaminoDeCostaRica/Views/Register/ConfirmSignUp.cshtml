@@ -1,0 +1,61 @@
+﻿@model ElCaminoDeCostaRica.Models.User
+@{
+    ViewBag.Title = "Confirmar registro";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>ConfirmSignUp</title>
+</head>
+<body>
+    @if (ViewBag.Success != null)
+    {
+        if (ViewBag.Success)
+        {
+            TempData.Remove("Code");
+        }
+        <div class="alert-success">
+            <h3> @ViewBag.Message </h3>
+        </div>
+    }
+
+
+    @using (Html.BeginForm("ConfirmSignUp", "Register", FormMethod.Post))
+    {
+        <h1 aling="center">Confirmar registro <br></h1>
+        @Html.HiddenFor(model => model.id)
+        @Html.HiddenFor(model => model.firstName)
+        @Html.HiddenFor(model => model.lastName)
+        @Html.HiddenFor(model => model.email)
+        @Html.HiddenFor(model => model.phone)
+        @Html.HiddenFor(model => model.password)
+        <div>
+            <p>Ingrese el código de confirmación</p>
+            <input type="text" id="code" name="code" class="inputCode" />
+        </div>
+        <div>
+            <p> <br>
+                Tiene 3 intentos para confirmar el registro, en caso contrario deberá realizar 
+                el registro nuevamente. <br>
+            </p>
+            @if (TempData.Peek("Attemps") != null)
+            {
+                int remainAttemps = 4 - Convert.ToInt32(TempData.Peek("Attemps").ToString());
+                <h4>
+                    Intentos restantes: @remainAttemps
+                </h4>
+            }
+        </div>
+        <div>
+            <input type="submit"  name="submitButton" class="btn btn-success btnCreate" value="Confirmar" />
+            <input type="submit"  name="submitButton" class="btn btn-primary btnCreate" value="Reenviar Código" />
+        </div>
+    }
+
+    
+
+</body>
+</html>

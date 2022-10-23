@@ -1,0 +1,158 @@
+﻿@model ElCaminoDeCostaRica.Models.Stage
+<<<<<<< HEAD
+@{ 
+=======
+@{
+>>>>>>> Cesar
+    List<SelectListItem> routes = new List<SelectListItem>();
+    foreach (var route in ViewBag.Data)
+    {
+        routes.Add(
+        new SelectListItem { Text = Convert.ToString(route.id), Value = Convert.ToString(route.id) }
+        );
+    } }
+<<<<<<< HEAD
+  
+=======
+
+>>>>>>> Cesar
+<html>
+<head>
+</head>
+<body>
+<<<<<<< HEAD
+    <div class="container_Rose formTitleCenter">
+=======
+    <div>
+>>>>>>> Cesar
+        @using (Html.BeginForm("stageEdit", "Stage", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+
+            @Html.AntiForgeryToken()
+<<<<<<< HEAD
+            <h1>Formulario de edicion de etapa</h1>
+            <div class="form-horizontal">
+                @Html.HiddenFor(model => model.id)
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.start, new { @class = "formLabel" })
+                    @Html.TextBoxFor(model => model.start, new { @class = "form-control, formInput" })
+                    @Html.ValidationMessageFor(model => model.start, "", new { @class = "text-danger" })
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.finish, new { @class = "formLabel" })
+                    @Html.TextBoxFor(model => model.finish, new { @class = "formcontrol, formInput" })
+                    @Html.ValidationMessageFor(model => model.finish, "", new { @class = "text-danger" })
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.distance, new { @class = "formLabel" })
+                    @Html.TextBoxFor(model => model.distance, new { @class = "formcontrol, formInput" })
+                    @Html.ValidationMessageFor(model => model.distance, "", new { @class = "text-danger" })
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.minAltimetry, new { @class = "formLabel" })
+                    @Html.TextBoxFor(model => model.minAltimetry, new { @class = "formcontrol, formInput" })
+                    @Html.ValidationMessageFor(model => model.minAltimetry, "", new { @class = "text-danger" })
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.maxAltimetry, new { @class = "formLabel" })
+                    @Html.TextBoxFor(model => model.maxAltimetry, new { @class = "formcontrol, formInput" })
+                    @Html.ValidationMessageFor(model => model.maxAltimetry, "", new { @class = "text-danger" })
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.idRoute, new { @class = "formLabel" })
+                    @Html.DropDownListFor(model => model.idRoute, routes, "-Sin selección - ", new { @class = "form - control" })
+                    @Html.ValidationMessageFor(model => model.idRoute, "", new { @class = "text-danger" })
+                </div>
+
+                <div>
+                    <input type="submit" class="btn btn-success" value="Aplicar cambios" />
+                </div>
+            </div>
+=======
+
+
+            <section class="min-vh-100 " style=" font-size:x-large;">
+                <div class="container py-5 h-100">
+                    <div class="row d-flex justify-content-center align-items-center h-100">
+                        <div class="col col-xl-10">
+                            <div class="card" style="border-radius: 4rem; border-style: solid; border-color: #FAD586;">
+                                <div class="row g-0 mb-7">
+
+                                    <div class="col-md-6 col-lg-5 d-none d-md-block" ;>
+                                        <img src="https://cdn-icons-png.flaticon.com/512/4252/4252489.png"
+                                             alt="login form" class="img-fluid" style="border-radius: 1rem 0 0 1rem; margin: 8px 14px" />
+                                    </div>
+
+                                    <div class="col-md-6 col-lg-7 d-flex align-items-center" style="font-size:x-large">
+                                        <div class="card-body p-4 p-lg-5 text-black">
+                                            @Html.HiddenFor(model => model.id)
+
+                                            <form>
+
+                                                <h1 class="fw-normal mb-3 pb-3" style="letter-spacing: 1px; color: #184D47">Modificar Etapa</h1>
+
+                                                <div class="form-outline mb-4">
+                                                    @Html.LabelFor(model => model.start, new { @class = "formLabel" })
+                                                    @Html.TextBoxFor(model => model.start, new { @class = "form-control, form-Input-control" })
+                                                    @Html.ValidationMessageFor(model => model.start, "", new { @class = "text-danger" })
+                                                </div>
+
+                                                <div class="form-outline mb-4">
+                                                    @Html.LabelFor(model => model.finish, new { @class = "formLabel" })
+                                                    @Html.TextBoxFor(model => model.finish, new { @class = "form-control, form-Input-control" })
+                                                    @Html.ValidationMessageFor(model => model.finish, "", new { @class = "text-danger" })
+                                                </div>
+
+                                                <div class="form-outline mb-4">
+                                                    @Html.LabelFor(model => model.distance, new { @class = "formLabel" })
+                                                    @Html.TextBoxFor(model => model.distance, new { @class = "form-control, form-Input-control" })
+                                                    @Html.ValidationMessageFor(model => model.distance, "", new { @class = "text-danger" })
+                                                </div>
+
+                                                <div class="form-outline mb-4">
+                                                    @Html.LabelFor(model => model.minAltimetry, new { @class = "formLabel" })
+                                                    @Html.TextBoxFor(model => model.minAltimetry, new { @class = "form-control, form-Input-control" })
+                                                    @Html.ValidationMessageFor(model => model.minAltimetry, "", new { @class = "text-danger" })
+                                                </div>
+
+                                                <div class="form-outline mb-4">
+                                                    @Html.LabelFor(model => model.maxAltimetry, new { @class = "formLabel" })
+                                                    @Html.TextBoxFor(model => model.maxAltimetry, new { @class = "form-control, form-Input-control" })
+                                                    @Html.ValidationMessageFor(model => model.maxAltimetry, "", new { @class = "text-danger" })
+
+                                                    <div class="form-outline mb-4">
+                                                        @Html.LabelFor(model => model.idRoute, new { @class = "formLabel" })
+                                                        @Html.DropDownListFor(model => model.idRoute, routes, "-Sin selección - ", new { @class = "form-control, form-Input-control" })
+                                                        @Html.ValidationMessageFor(model => model.idRoute, "", new { @class = "text-danger" })
+                                                    </div>
+
+
+                                                    <div class="pt-1 mb-4">
+                                                        <a href="~/Views/Home/Index.cshtml">
+                                                            <input type="submit" class="rounded-3 btnLogin"
+                                                                   style=" margin: 10px; background-color: #FAD586; color:black; "
+                                                                   value="Guardar Cambios" />
+                                                        </a>
+                                                    </div>
+
+
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+>>>>>>> Cesar
+        }
+    </div>
+</body>
+@section Scripts
+{
+    @Scripts.Render("~/bundles/jqueryval")
+}
+</html>

@@ -1,0 +1,69 @@
+﻿@model ElCaminoDeCostaRica.Models.Category
+@{ ViewBag.Title = "Categorias"; }
+<html>
+<head>
+</head>
+
+<body class="body_Index">
+
+<<<<<<< HEAD
+    <div class="container_Green">
+        <h1 align="center" style="color:black; font-family:Agrozza Demo">Lista de categorias</h1>
+        <div class="seccion_1" id="s1">
+            <table class="table">
+                <tr>
+                    <th class="text-center">Id</th>
+                    <th class="text-center">Nombre</th>
+                </tr>
+                <tbody>
+                    @foreach (var category in ViewBag.categories)
+                    {
+                        <tr>
+                            <td class="text-center"> @category.id </td>
+                            <td class="text-center"> @category.name </td>
+
+                            <td>
+                                @Html.ActionLink("Modificar", "categoryEdit", new { identificador = @category.id },
+                                          new { @class = "btn btn alert-info", @onclick = "return confirm('¿Quiere modificar esta categoria ? ');" })
+                            </td>
+                            <td>
+                                @Html.ActionLink("Borrar", "categoryDelete", new { identificador = category.id },
+                                      new { @class = "btn btn alert-info", @onclick = "return confirm('¿Quiere borrar esta categoria? ');" })
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+=======
+    <div class="table-responsive m-lg-2">
+        <table class="table">
+            <h1 align="center" style="color: #184D47; font-family: Agrozza Demo">Lista de Categorias</h1>
+            <tr style="color: #184D47">
+                <th class="text-center" scope="col" >Id</th>
+                <th class="text-center" scope="col" >Nombre</th>
+            </tr>
+            <tbody>
+                @foreach (var category in ViewBag.categories)
+                {
+                    <tr>
+                        <td class="text-center" scope="row"> @category.id </td>
+                        <td class="text-center" scope="row"> @category.name </td>
+
+                        <td>
+                            @Html.ActionLink("Modificar", "categoryEdit", new { identificador = @category.id },
+                                      new { @class = "btnLogin alert-info", @onclick = "return confirm('¿Quiere modificar esta categoria ? ');" })
+                        </td>
+                        <td>
+                            @Html.ActionLink("Borrar", "categoryDelete", new { identificador = category.id },
+                                  new { @class = "btnLogin alert-info", @onclick = "return confirm('¿Quiere borrar esta categoria? ');" })
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+>>>>>>> Cesar
+</body>
+</html>
+

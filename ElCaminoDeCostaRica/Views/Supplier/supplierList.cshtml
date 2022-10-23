@@ -1,0 +1,46 @@
+﻿@model ElCaminoDeCostaRica.Models.Supplier
+@{ ViewBag.Title = "Proveedores"; }
+<html>
+<head>
+</head>
+
+<body>
+    <div class="container_Green">
+        <h1 align="center" style="color:black; font-family:Agrozza Demo">Lista de proveedores</h1>
+        <div class="seccion_1" id="s1">
+            <table class="table">
+                <tr>
+                    <th class="text-center">Id</th>
+                    <th class="text-center">Nombre</th>
+                    <th class="text-center">Longitud</th>
+                    <th class="text-center">Latitud</th>
+                    <th class="text-center">Email</th>
+                    <th class="text-center">Telefono</th>
+                </tr>
+                <tbody>
+                    @foreach (var supplier in ViewBag.suppliers)
+                    {
+                        <tr>
+                            <td class="text-center"> @supplier.id </td>
+                            <td class="text-center"> @supplier.name </td>
+                            <td class="text-center"> @supplier.longitude </td>
+                            <td class="text-center"> @supplier.latitude </td>
+                            <td class="text-center"> @supplier.email </td>
+                            <td class="text-center"> @supplier.phone </td>
+
+                            <td>
+                                @Html.ActionLink("Modificar", "supplierEdit", new { identificador = supplier.id },
+                                          new { @class = "btn btn alert-info", @onclick = "return confirm('¿Quiere modificar este proveedor ? ');" })
+                            </td>
+                            <td>
+                                @Html.ActionLink("Borrar", "supplierDelete", new { identificador = supplier.id },
+                                      new { @class = "btn btn alert-info", @onclick = "return confirm('¿Quiere borrar este proveedor? ');" })
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,121 @@
+﻿@model ElCaminoDeCostaRica.Models.Feedback
+@{
+    List<SelectListItem> services = new List<SelectListItem>();
+    List<SelectListItem> surveys = new List<SelectListItem>();
+    foreach (var service in ViewBag.Services)
+    {
+        services.Add(
+        new SelectListItem { Text = Convert.ToString(service.name), Value = Convert.ToString(service.id) }
+        );
+    }
+    foreach (var survey in ViewBag.Surveys)
+    {
+        surveys.Add(
+        new SelectListItem { Text = Convert.ToString(survey.id), Value = Convert.ToString(survey.id) }
+        );
+    }
+
+}
+<html>
+<head>
+</head>
+<body class="body_Login">
+    @if (ViewBag.Message != null)
+    {
+        if (ViewBag.Success)
+        {
+            <div class="alert-success">
+                <h3> @ViewBag.Message </h3>
+            </div>
+        }
+        else
+        {
+            <div class="alert-danger">
+                <h3> @ViewBag.Message </h3>
+            </div>
+        }
+    }
+
+
+
+
+
+
+
+    @using (Html.BeginForm("addFeedback", "Feedback", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+
+        @Html.AntiForgeryToken()
+        <section class="min-vh-100 " style=" font-size:x-large;">
+            <div class="container py-5 h-100">
+                <div class="row d-flex justify-content-center align-items-center h-100">
+                    <div class="col col-xl-10">
+                        <div class="card" style="border-radius: 4rem; border-style: solid; border-color: #FAD586;">
+                            <div class="row g-0 mb-7">
+
+                                <div class="col-md-6 col-lg-5 d-none d-md-block" ;>
+                                    <img src="https://cdn-icons-png.flaticon.com/512/121/121703.png"
+                                         alt="login form" class="img-fluid" style="border-radius: 1rem 0 0 1rem; margin: 8px 14px" />
+                                </div>
+
+                                <div class="col-md-6 col-lg-7 d-flex align-items-center" style="font-size:x-large">
+                                    <div class="card-body p-4 p-lg-5 text-black">
+
+
+                                        <form>
+
+                                            <h1 class="fw-normal mb-3 pb-3" style="letter-spacing: 1px; color: #184D47">Encuesta</h1>
+
+                                            <div class="form-outline mb-4">
+                                                <label class="form-label" for="form2Example17">  Id Encuesta </label>
+                                                @Html.DropDownListFor(model => model.idSurvey, surveys, "-Sin selección - ", new { @class = "form-control,form-control-lg" })
+                                                @Html.ValidationMessageFor(model => model.idSurvey, "", new { @class = "text-danger" })
+                                            </div>
+
+                                            <div class="form-outline mb-4">
+                                                <label class="form-label" for="form2Example27">Id Servicio </label>
+                                                @Html.DropDownListFor(model => model.idService, services, "-Sin selección - ", new { @class = "form-control,form-control-lg" })
+                                                @Html.ValidationMessageFor(model => model.idService, "", new { @class = "text-danger" })
+
+                                            </div>
+
+                                            <div class="form-outline mb-4">
+                                                <label class="form-label" for="form2Example27">Rating </label>
+                                                @Html.TextBoxFor(model => model.rating, new { @class = "form-control, form-control-lg" })
+                                                @Html.ValidationMessageFor(model => model.rating, "", new { @class = "text-danger" })
+
+                                            </div>
+
+                                            <div class="form-outline mb-4">
+                                                <label class="form-label" for="form2Example27">Comentarios </label>
+                                                @Html.TextBoxFor(model => model.comments, new { @class = "form-control, form-control-lg" })
+                                                @Html.ValidationMessageFor(model => model.comments, "", new { @class = "text-danger" })
+
+                                            </div>
+
+
+
+                                            <div class="pt-1 mb-4">
+                                                <a href="~/Views/Home/Index.cshtml">
+                                                    <input type="submit" class="rounded-3 btnLogin"
+                                                           style=" margin: 10px; background-color: #FAD586; color:black; "
+                                                           value="Guardar Cambios" />
+                                                </a>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    }
+
+</body>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+</html>

@@ -1,0 +1,38 @@
+﻿@model ElCaminoDeCostaRica.Models.Inscription
+@{ ViewBag.Title = "Inscripcion"; }
+<html>
+<head>
+</head>
+
+<body>
+
+
+    <div class="table-responsive m-lg-2">
+        <table class="table">
+            <h1 align="center" style="color: #184D47; font-family: Agrozza Demo">Lista de Inscripciones</h1>
+            <tr style="color: #184D47">
+                <th scope="col" class="text-center">Usuario</th>
+                <th scope="col" class="text-center">Etapa</th>
+                <th scope="col" class="text-center">Fecha</th>
+                <th scope="col" class="text-center">Código</th>
+            </tr>
+            <tbody>
+                @foreach (var inscription in ViewBag.inscriptions)
+                {
+                    <tr>
+                        <td class="text-center" scope="row"> @inscription.idUser </td>
+                        <td class="text-center" scope="row"> @inscription.idStage </td>
+                        <td class="text-center" scope="row"> @inscription.date</td>
+                        <td class="text-center" scope="row"> @inscription.code </td>
+
+                        <td scope="row" class="text-center">
+                            @Html.ActionLink("Desinscribirse", "desinscription", new { identificador = inscription.idUser },
+                                      new { @class = "btnLogin alert-info", @onclick = "return confirm('¿Quiere desinscribirse? ');" })
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+</body>
+</html>

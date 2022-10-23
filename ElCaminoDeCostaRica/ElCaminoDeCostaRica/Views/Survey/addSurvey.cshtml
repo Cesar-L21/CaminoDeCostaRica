@@ -1,0 +1,181 @@
+﻿@model ElCaminoDeCostaRica.Models.Survey
+@{
+    List<SelectListItem> categories = new List<SelectListItem>();
+    List<SelectListItem> services = new List<SelectListItem>();
+    foreach (var category in ViewBag.Categories)
+    {
+        categories.Add(
+        new SelectListItem { Text = Convert.ToString(category.name), Value = Convert.ToString(category.id) }
+        );
+    }
+
+    foreach (var service in ViewBag.Services)
+    {
+        services.Add(
+        new SelectListItem { Text = Convert.ToString(service.name), Value = Convert.ToString(service.id) }
+        );
+    }
+}
+<html>
+<head>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+</head>
+<body>
+
+
+    @if (ViewBag.Message != null)
+    {
+        if (ViewBag.Success)
+        {
+            <div class="alert-success">
+                <h3> @ViewBag.Message </h3>
+            </div>
+        }
+        else
+        {
+            <div class="alert-danger">
+                <h3> @ViewBag.Message </h3>
+            </div>
+        }
+    }
+
+    @{
+
+        using (Html.BeginForm("addSurvey", "Survey", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            @Html.AntiForgeryToken()
+            <h1 class="formTitle">Crear encuesta</h1>
+
+
+<<<<<<< HEAD
+            <div class="form-style-9" ; style="color:black">
+                @Html.LabelFor(model => model.version)
+                @Html.TextBoxFor(model => model.version, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.version, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="form-style-9" ; style="color:black">
+                @Html.LabelFor(model => model.day)
+                @Html.TextBoxFor(model => model.day, new { @type = "date" })
+                @Html.ValidationMessageFor(model => model.day, "", new { @class = "text-danger" })
+
+
+            </div>
+=======
+
+            <section class="min-vh-100 " style=" font-size:x-large;">
+                <div class="container py-5 h-100">
+                    <div class="row d-flex justify-content-center align-items-center h-100">
+                        <div class="col col-xl-10">
+                            <div class="card" style="border-radius: 4rem; border-style: solid; border-color: #FAD586;">
+                                <div class="row g-0 mb-7">
+
+                                    <div class="col-md-6 col-lg-5 d-none d-md-block" ;>
+                                        <img src="https://cdn-icons-png.flaticon.com/512/3593/3593663.png"
+                                             alt="login form" class="img-fluid" style="border-radius: 1rem 0 0 1rem; margin: 8px 14px" />
+                                    </div>
+
+                                    <div class="col-md-6 col-lg-7 d-flex align-items-center" style="font-size:x-large">
+                                        <div class="card-body p-4 p-lg-5 text-black">
+                                            @Html.HiddenFor(model => model.id)
+
+                                            <form>
+
+                                                <h1 class="fw-normal mb-3 pb-3" style="letter-spacing: 1px; color: #184D47">Añadir Encuesta</h1>
+
+                                                <div class="form-outline mb-4">
+                                                    @Html.LabelFor(model => model.version)
+                                                    @Html.TextBoxFor(model => model.version, new { @class = "form-control,form-control-lg" })
+                                                    @Html.ValidationMessageFor(model => model.version, "", new { @class = "text-danger" })
+                                                </div>
+
+
+
+>>>>>>> Cesar
+
+            <div class="form-style-9" ; style="color:black">
+                @Html.LabelFor(model => model.idCategory)
+                @Html.DropDownListFor(model => model.idCategory, categories, "-Sin selección - ", new { @class = "form - control" })
+                @Html.ValidationMessageFor(model => model.idCategory, "", new { @class = "text-danger" })
+
+
+            </div>
+
+            <div class="form-style-9" ; style="color:black">
+                @Html.LabelFor(model => model.idService)
+                @Html.DropDownListFor(model => model.idService, services, "-Sin selección - ", new { @class = "form - control" })
+                @Html.ValidationMessageFor(model => model.idService, "", new { @class = "text-danger" })
+            </div>
+            @*<div id="newRow">
+                    <button id="addRow" type="button" class="btn btn-info">Agregar Pregunta</button>
+                </div>*@
+            <div class="form-style-9" ; style="color:black">
+                @Html.Label("Pregunta")
+                @Html.TextBox("numero1", ViewBag.Num1 as string)
+                @*@Html.ValidationMessageFor(String,"Debe ser un string", new { @class = "text-danger" })*@
+            </div>
+
+            <div class="form-style-9" ; style="color:black">
+                @Html.Label("Pregunta")
+                @Html.TextBox("numero2", ViewBag.Num2 as string)
+                @*@Html.ValidationMessageFor(String,"Debe ser un string", new { @class = "text-danger" })*@
+            </div>
+
+            <div class="form-style-9" ; style="color:black">
+                @Html.Label("Pregunta")
+                @Html.TextBox("numero3", ViewBag.Num3 as string)
+                @*@Html.ValidationMessageFor(String,"Debe ser un string", new { @class = "text-danger" })*@
+            </div>
+
+            <div class="form-style-9" ; style="color:black">
+                @Html.Label("Pregunta")
+                @Html.TextBox("numero4", ViewBag.Num4 as string)
+                @*@Html.ValidationMessageFor(String,"Debe ser un string", new { @class = "text-danger" })*@
+            </div>
+
+            <div class="form-style-9" ; style="color:black">
+                @Html.Label("Pregunta")
+                @Html.TextBox("numero5", ViewBag.Num5 as string)
+                @*@Html.ValidationMessageFor(String,"Debe ser un string", new { @class = "text-danger" })*@
+            </div>
+
+            <div>
+                <input type="submit" id="crear" class="btn btn-success btnCreate" value="Crear" />
+            </div>
+
+        }
+        @*<script type="text/javascript">
+                // agregar registro
+                $("#addRow").click(function () {
+                    var html = '';
+                    html += '<div class="form-group" id="inputFormRow">';
+                    html += '@Html.Label("Pregunta")';
+                    html += '<input type="text" name="title[]" class="form-control m-input" placeholder="Ingrese pregunta" autocomplete="off">';
+                    html += '<div class="input-group-append">';
+                    html += '<button id="removeRow" type="button" class="btn btn-danger">Borrar</button>';
+                    html += '</div>';
+                    html += '</div>';
+
+
+                    $('#newRow').append(html);
+                });
+
+                // borrar registro
+                $(document).on('click', '#removeRow', function () {
+                    $(this).closest('#inputFormRow').remove();
+                });
+<<<<<<< HEAD
+=======
+               <div class="form-outline mb-4">
+                                                    @Html.LabelFor(model => model.day)
+                                                    @Html.TextBoxFor(model => model.day, new { @type = "date" })
+                                                    @Html.ValidationMessageFor(model => model.day, "", new { @class = "text-danger" })
+                                                </div>
+>>>>>>> Cesar
+
+            </script>*@
+    }
+</body>
+@section Scripts { @Scripts.Render("~/bundles/jqueryval") }
+</html>
+

@@ -1,0 +1,79 @@
+﻿@{
+    ViewBag.Title = "showServices";
+}
+<html>
+<head>
+</head>
+
+<body>
+    <h2 style="text-align:center">Servicios de la etapa @ViewBag.id</h2>
+    @{
+        if (TempData.Peek("message") != null)
+        {
+            if (Convert.ToBoolean(TempData.Peek("success")))
+            {
+                <div class="alert-success">
+                    <h3> @TempData["message"] </h3>
+                </div>
+            }
+            else
+            {
+                <div class="alert-danger">
+                    <h3> @TempData["message"]</h3>
+                </div>
+            }
+        }
+    }
+
+
+    @{ foreach (var service in ViewBag.services)
+        {
+            <div class="row">
+                <div class="col-md">
+                    <div class="card text-center">
+                        <div class="card-body">
+                            <h4 class="card-title">@service.name</h4>
+                            <p class="card-text">
+                                @service.description
+                            </p>
+                            @foreach (var category in ViewBag.categories)
+                            {
+                                if (service.idCategory == category.id)
+                                {
+                                    <p class="card-text">
+                                        Categoria: @category.name
+                                    </p>
+                                }
+                            }
+                            @foreach (var supplier in ViewBag.suppliers)
+                            {
+                                if (service.idSupplier == supplier.id)
+                                {
+                                    <p class="card-text">
+                                        Proveedor: @supplier.name
+                                    </p>
+                                }
+                            }
+                            <div>
+                                @Html.ActionLink("Realizar encuesta", "doSurvey", new { identificador = service.id },
+                                  new { @class = "btnLogin alert-info", @onclick = "return confirm('¿Quiere realizar la encuesta? ');" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        }
+    }
+
+    <div>
+        @Html.ActionLink("Regresar", "Index", null, new { @class = "btnLogin alert-info" })
+    </div>
+
+    <script src="~/Scripts/modal.js"></script>
+    <link rel="stylesheet" type="text/css" href="~/Content/modal.css">
+</body>
+
+</html>
+    
+  

@@ -1,0 +1,39 @@
+﻿@{
+    ViewBag.Title = "Confirmar codigo";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+
+</head>
+<body>
+    @if (ViewBag.Success != null)
+    {
+        if (ViewBag.Success)
+        {
+            TempData.Remove("Code");
+        }
+        <div class="alert-success">
+            <h3> @ViewBag.Message </h3>
+        </div>
+    }
+
+
+    @using (Html.BeginForm("doSurvey", "Route", FormMethod.Post))
+    {
+        <div>
+            <p>Ingrese el código de inscripcion</p>
+            <input type="text" id="userCode" name="userCode" class="inputCode" />
+        </div>
+ 
+        <div>
+            <input type="submit" name="submitButton" class="btn btn-success btnCreate" value="Confirmar" />
+            <input type="submit" name="submitButton" class="btn btn-success btnCreate" value="Regresar" />
+        </div>
+    }
+
+</body>
+</html>

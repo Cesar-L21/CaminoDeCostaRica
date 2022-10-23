@@ -1,0 +1,56 @@
+﻿@model ElCaminoDeCostaRica.Models.Stage
+@{ ViewBag.Title = "Etapas"; }
+<html>
+<head>
+</head>
+
+<body>
+
+
+    <div class="table-responsive m-lg-2">
+        <h1 align="center" style="color: #184D47; font-family: Agrozza Demo">Lista de Etapas</h1>
+        <table class="table">
+            <tr style="color: #184D47">
+                <th scope="col" class="text-center">Id</th>
+                <th scope="col" class="text-center">Inicio</th>
+                <th scope="col" class="text-center">Final</th>
+                <th scope="col" class="text-center">Distancia en KM</th>
+                <th scope="col" class="text-center">Altimetria minima MSNM</th>
+                <th scope="col" class="text-center">Altimetria maxima MSNM</th>
+                <th scope="col" class="text-center">Ruta</th>
+            </tr>
+            <tbody>
+                @foreach (var stage in ViewBag.stages)
+                {
+                    <tr>
+                        <td scope="row" class="text-center"> @stage.id </td>
+                        <td scope="row" class="text-center"> @stage.start </td>
+                        <td scope="row" class="text-center"> @stage.finish </td>
+                        <td scope="row" class="text-center"> @stage.distance </td>
+                        <td scope="row" class="text-center"> @stage.minAltimetry </td>
+                        <td scope="row" class="text-center"> @stage.maxAltimetry </td>
+                        <td scope="row" class="text-center"> @stage.idRoute </td>
+
+                        <td>
+                            @Html.ActionLink("Modificar", "stageEdit", new { identificador = stage.id },
+                                      new { @class = "btnLogin alert-info", @onclick = "return confirm('¿Quiere modificar esta etapa ? ');" })
+                        </td>
+                        <td>
+                            @Html.ActionLink("Borrar", "stageDelete", new { identificador = stage.id },
+                                  new { @class = "btnLogin alert-info", @onclick = "return confirm('¿Quiere borrar esta etapa? ');" })
+                        </td>
+                      @*  <td>
+                            @Html.ActionLink("Inscribirse", "Inscription", new { identificador = stage.id },
+                                  new { @class = "btn btn alert-info", @onclick = "return confirm('¿Quiere inscribirse en esta etapa? '};" })
+                        </td>*@
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+
+
+    </div>
+
+</body>
+</html>
